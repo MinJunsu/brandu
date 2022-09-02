@@ -127,16 +127,24 @@ Map<String, dynamic> _$ReviewToJson(Review instance) => <String, dynamic>{
       'description': instance.description,
     };
 
-Bucket _$BucketFromJson(Map<String, dynamic> json) => Bucket(
+Wish _$WishFromJson(Map<String, dynamic> json) => Wish(
+      id: json['id'] as int,
+      product: SimpleProduct.fromJson(json['product'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$WishToJson(Wish instance) => <String, dynamic>{
+      'id': instance.id,
+      'product': instance.product,
+    };
+
+Basket _$BasketFromJson(Map<String, dynamic> json) => Basket(
       id: json['id'] as int,
       product: SimpleProduct.fromJson(json['product'] as Map<String, dynamic>),
       amount: json['amount'] as int,
-      is_purchase: json['is_purchase'] as bool,
     );
 
-Map<String, dynamic> _$BucketToJson(Bucket instance) => <String, dynamic>{
+Map<String, dynamic> _$BasketToJson(Basket instance) => <String, dynamic>{
       'id': instance.id,
       'product': instance.product,
       'amount': instance.amount,
-      'is_purchase': instance.is_purchase,
     };

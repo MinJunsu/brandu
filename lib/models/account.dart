@@ -159,20 +159,33 @@ class Review {
 }
 
 @JsonSerializable()
-class Bucket {
+class Wish {
+  final int id;
+  final SimpleProduct product;
+
+  Wish({
+    required this.id,
+    required this.product,
+  });
+
+  factory Wish.fromJson(Map<String, dynamic> json) => _$WishFromJson(json);
+
+  Map<String, dynamic> toJson() => _$WishToJson(this);
+}
+
+@JsonSerializable()
+class Basket {
   final int id;
   final SimpleProduct product;
   final int amount;
-  final bool is_purchase;
 
-  Bucket({
+  Basket({
     required this.id,
     required this.product,
     required this.amount,
-    required this.is_purchase,
   });
 
-  factory Bucket.fromJson(Map<String, dynamic> json) => _$BucketFromJson(json);
+  factory Basket.fromJson(Map<String, dynamic> json) => _$BasketFromJson(json);
 
-  Map<String, dynamic> toJson() => _$BucketToJson(this);
+  Map<String, dynamic> toJson() => _$BasketToJson(this);
 }

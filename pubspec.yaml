@@ -36,7 +36,11 @@ dependencies:
   cupertino_icons: ^1.0.2
   get:
   flutter_svg:
-  json_annotation:
+  carousel_slider:
+  json_serializable:
+  intl:
+  build_runner:
+  collection:
 
 dev_dependencies:
   flutter_test:
