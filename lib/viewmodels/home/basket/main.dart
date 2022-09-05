@@ -2,7 +2,7 @@ import 'package:brandu/models/account.dart';
 import 'package:collection/collection.dart';
 import 'package:get/get.dart';
 
-class BasketPageViewModel extends GetxController {
+class BasketController extends GetxController {
   List<int> _counts = [];
   List<Basket> _baskets = [];
   List<bool> _checkedList = [];
@@ -16,7 +16,7 @@ class BasketPageViewModel extends GetxController {
 
   int get orderPrice => _orderPrice;
 
-  BasketPageViewModel() {
+  BasketController() {
     _checkedList = List<bool>.filled(_baskets.length, true);
     _counts = _baskets.map((e) => e.amount).toList();
     _orderPrice = _baskets

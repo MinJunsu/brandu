@@ -9,141 +9,136 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-class StorePage extends StatelessWidget {
+class StorePage extends GetView<StoreController> {
   const StorePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<StorePageViewModel>(
-      builder: (viewModel) {
-        return Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Column(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(10),
-                      child: CarouselSlider(
-                        options: CarouselOptions(
-                          height: 220,
-                          autoPlay: true,
-                          viewportFraction: 1,
-                        ),
-                        items: [1, 2, 3, 4, 5].map(
-                          (i) {
-                            return Builder(
-                              builder: (BuildContext context) {
-                                return Container(
-                                  width: double.infinity,
-                                  margin:
-                                      const EdgeInsets.symmetric(horizontal: 5),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      image: const DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: AssetImage(
-                                            'assets/images/carousel/img.png'), // 배경 이미지
+    return Column(
+      children: [
+        Expanded(
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  child: CarouselSlider(
+                    options: CarouselOptions(
+                      height: 220,
+                      autoPlay: true,
+                      viewportFraction: 1,
+                    ),
+                    items: [1, 2, 3, 4, 5].map(
+                      (i) {
+                        return Builder(
+                          builder: (BuildContext context) {
+                            return Container(
+                              width: double.infinity,
+                              margin: const EdgeInsets.symmetric(horizontal: 5),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  image: const DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: AssetImage(
+                                        'assets/images/carousel/img.png'), // 배경 이미지
+                                  ),
+                                ),
+                                child: Scaffold(
+                                  backgroundColor: Colors.transparent,
+                                  body: Container(
+                                    alignment: Alignment.bottomRight,
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      margin: const EdgeInsets.all(10),
+                                      width: 45,
+                                      height: 25,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(50),
+                                        color:
+                                            const Color.fromRGBO(0, 0, 0, 0.3),
                                       ),
-                                    ),
-                                    child: Scaffold(
-                                      backgroundColor: Colors.transparent,
-                                      body: Container(
-                                        alignment: Alignment.bottomRight,
-                                        child: Container(
-                                          alignment: Alignment.center,
-                                          margin: const EdgeInsets.all(10),
-                                          width: 45,
-                                          height: 25,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(50),
-                                            color: const Color.fromRGBO(
-                                                0, 0, 0, 0.3),
-                                          ),
-                                          child: NotoText('$i/10', size: 12),
-                                        ),
-                                      ),
+                                      child: NotoText('$i/10', size: 12),
                                     ),
                                   ),
-                                );
-                              },
+                                ),
+                              ),
                             );
                           },
-                        ).toList(),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    BoxContainer(
-                        height: 610,
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Container(
-                            margin: const EdgeInsets.all(15),
-                            child: Wrap(
-                              direction: Axis.horizontal,
-                              spacing: 15,
-                              children: [
-                                LabelButton(
-                                  onPressed: () {},
-                                  title: '추천상품',
-                                  icon: 'assets/icons/recommend.svg',
-                                  color: mainColor,
-                                ),
-                                LabelButton(
-                                  onPressed: () {},
-                                  title: '인기상품',
-                                  icon: 'assets/icons/star.svg',
-                                  color:
-                                      const Color.fromRGBO(236, 175, 73, 1.0),
-                                ),
-                                ...viewModel.categories.map(
-                                  (category) => LabelButton(
-                                    onPressed: () {},
-                                    title: category.name,
-                                    icon: 'assets/icons/star.svg',
-                                    color: Color(
-                                      int.parse('0xff${category.color}'),
-                                    ),
-                                    isNetwork: true,
-                                  ),
-                                ),
-                              ],
+                        );
+                      },
+                    ).toList(),
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                BoxContainer(
+                  height: 100,
+                  color: Colors.white,
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Container(
+                      margin: const EdgeInsets.all(15),
+                      child: Wrap(
+                        direction: Axis.horizontal,
+                        spacing: 15,
+                        children: [
+                          LabelButton(
+                            onPressed: () {},
+                            title: '추천상품',
+                            icon: 'assets/icons/recommend.svg',
+                            color: mainColor,
+                          ),
+                          LabelButton(
+                            onPressed: () {},
+                            title: '인기상품',
+                            icon: 'assets/icons/star.svg',
+                            color: const Color.fromRGBO(236, 175, 73, 1.0),
+                          ),
+                          ...controller.categories.map(
+                            (category) => LabelButton(
+                              onPressed: () {},
+                              title: category.name,
+                              icon: 'assets/icons/star.svg',
+                              color: Color(
+                                int.parse('0xff${category.color}'),
+                              ),
+                              isNetwork: true,
                             ),
                           ),
-                        )),
-                    const SizedBox(
-                      height: 20,
+                        ],
+                      ),
                     ),
-                    MainSaleBox(
-                      title: '브랜뉴 오늘의 핫딜',
-                      products: viewModel.hotDealProducts,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Image.asset('assets/images/event.png'),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    MainSaleBox(
-                      title: '6월의 베스트셀러',
-                      products: viewModel.monthlyProducts,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                  ],
+                  ),
                 ),
-              ),
+                const SizedBox(
+                  height: 20,
+                ),
+                MainSaleBox(
+                  title: '브랜뉴 오늘의 핫딜',
+                  products: controller.hotDealProducts,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Image.asset('assets/images/event.png'),
+                const SizedBox(
+                  height: 20,
+                ),
+                MainSaleBox(
+                  title: '6월의 베스트셀러',
+                  products: controller.monthlyProducts,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+              ],
             ),
-          ],
-        );
-      },
+          ),
+        ),
+      ],
     );
   }
 }

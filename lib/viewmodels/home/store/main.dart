@@ -1,7 +1,7 @@
 import 'package:brandu/models/product.dart';
 import 'package:get/get.dart';
 
-class StorePageViewModel extends GetxController {
+class StoreController extends GetxController {
   List<MainCategory> _categories = [];
   List<SimpleProduct> _hotDealProducts = [];
   List<SimpleProduct> _monthlyProducts = [];

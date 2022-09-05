@@ -1,3 +1,3 @@
 import 'package:get/get.dart';
 
-class CommunityPageViewModel extends GetxController {}
+class CommunityController extends GetxController {}

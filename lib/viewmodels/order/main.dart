@@ -1,7 +1,7 @@
 import 'package:brandu/models/account.dart';
 import 'package:get/get.dart';
 
-class OrderPageViewModel extends GetxController {
+class OrderController extends GetxController {
   bool _visibility = false;
   List<Address> _addresses = [];
   int _addressIndex = 0;

@@ -1,7 +1,11 @@
+import 'package:brandu/screens/home/basket/main.dart';
+import 'package:brandu/screens/home/community/main.dart';
+import 'package:brandu/screens/home/store/main.dart';
+import 'package:brandu/screens/home/wish/main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class HomePageViewModel extends GetxController
+class HomeController extends GetxController
     with GetSingleTickerProviderStateMixin {
   late TabController controller;
   late List<Widget> tabHeaders;
@@ -17,6 +21,13 @@ class HomePageViewModel extends GetxController
       sizedTab('찜한상품'),
       sizedTab('장바구니'),
       sizedTab('스크랩북'),
+    ];
+    tabs = [
+      StorePage(),
+      CommunityPage(),
+      WishPage(),
+      BasketPage(),
+      Container(),
     ];
   }
 
