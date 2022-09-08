@@ -55,3 +55,23 @@ class CouponHold {
 
   Map<String, dynamic> toJson() => _$CouponHoldToJson(this);
 }
+
+@JsonSerializable()
+class Advertisement {
+  final int id;
+  final String title;
+  final String backdrop_image;
+  final String link;
+
+  Advertisement({
+    required this.id,
+    required this.title,
+    required this.backdrop_image,
+    required this.link,
+  });
+
+  factory Advertisement.fromJson(Map<String, dynamic> json) =>
+      _$AdvertisementFromJson(json);
+
+  Map<String, dynamic> toJson() => _$AdvertisementToJson(this);
+}

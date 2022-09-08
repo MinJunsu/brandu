@@ -31,6 +31,18 @@ class HomeController extends GetxController
     ];
   }
 
+  void goBasketPage() {
+    controller.animateTo(3);
+  }
+
+  void goWishPage() {
+    controller.animateTo(2);
+  }
+
+  void goScrapBook() {
+    controller.animateTo(4);
+  }
+
   @override
   void onClose() {
     super.onClose();

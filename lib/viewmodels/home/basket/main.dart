@@ -1,31 +1,57 @@
 import 'package:brandu/models/account.dart';
+import 'package:brandu/services/accounts.dart';
+import 'package:brandu/services/auth_dio.dart';
+import 'package:brandu/viewmodels/home/wish/main.dart';
 import 'package:collection/collection.dart';
 import 'package:get/get.dart';
 
 class BasketController extends GetxController {
-  List<int> _counts = [];
-  List<Basket> _baskets = [];
-  List<bool> _checkedList = [];
+  final RxList<int> _counts = <int>[].obs;
+  final RxList<Basket> _baskets = <Basket>[].obs;
+  final RxList<bool> _checkedList = <bool>[].obs;
   int _orderPrice = 0;
 
   List<Basket> get baskets => _baskets;
 
   List<bool> get checkedList => _checkedList;
 
-  List<int> get counts => _counts;
+  RxList<int> get counts => _counts;
 
-  int get orderPrice => _orderPrice;
+  int get orderPrice => _baskets
+      .whereIndexed((index, element) => checkedList[index])
+      .mapIndexed((index, element) => element.product.price * _counts[index])
+      .sum;
 
-  BasketController() {
-    _checkedList = List<bool>.filled(_baskets.length, true);
-    _counts = _baskets.map((e) => e.amount).toList();
-    _orderPrice = _baskets
-        .mapIndexed((index, element) => element.product.price * counts[index])
-        .sum;
+  @override
+  void onInit() {
+    super.onInit();
+    fetchBaskets();
+  }
+
+  void fetchBaskets() async {
+    List<Basket> baskets = await AccountClient(await authDio()).getBaskets();
+    _baskets(baskets);
+    initializerList();
+  }
+
+  void initializerList() {
+    _checkedList(List<bool>.filled(_baskets.length, true));
+    _counts(_baskets.map((e) => e.amount).toList());
+  }
+
+  void toggleCheckedListIndex(int index, bool? isChecked) {
+    _checkedList[index] = isChecked!;
+  }
+
+  void removeBasket(int index) async {
+    await AccountClient(await authDio())
+        .deleteBaskets(_baskets[index].product.id);
+    fetchBaskets();
+    Get.find<WishController>().fetchWishes();
   }
 
   void toggleCheckedList(bool? isChecked) {
-    _checkedList = List<bool>.filled(_checkedList.length, isChecked!);
+    _checkedList(List<bool>.filled(_checkedList.length, isChecked!));
   }
 
   void incrementCount(int index) {

@@ -46,3 +46,19 @@ Map<String, dynamic> _$CouponHoldToJson(CouponHold instance) =>
       'created': instance.created.toIso8601String(),
       'is_use': instance.is_use,
     };
+
+Advertisement _$AdvertisementFromJson(Map<String, dynamic> json) =>
+    Advertisement(
+      id: json['id'] as int,
+      title: json['title'] as String,
+      backdrop_image: json['backdrop_image'] as String,
+      link: json['link'] as String,
+    );
+
+Map<String, dynamic> _$AdvertisementToJson(Advertisement instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'title': instance.title,
+      'backdrop_image': instance.backdrop_image,
+      'link': instance.link,
+    };

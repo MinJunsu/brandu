@@ -2,7 +2,7 @@ import 'package:brandu/models/event.dart';
 import 'package:get/get.dart';
 
 class CouponController extends GetxController {
-  List<CouponHold> _coupons = [];
+  final RxList<CouponHold> _coupons = <CouponHold>[].obs;
 
-  List<CouponHold> get coupons => _coupons;
+  RxList<CouponHold> get coupons => _coupons;
 }

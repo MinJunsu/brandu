@@ -78,12 +78,14 @@ class CouponPage extends GetView<CouponController> {
                             height: 10,
                           ),
                           NotoText(
-                            '${baseDateFormat.format(controller.coupons[index].created)}~${baseDateFormat.format(controller.coupons[index].created.add(
-                              Duration(
-                                days: controller
-                                    .coupons[index].coupon.expiration_period,
+                            '${baseDateFormat.format(controller.coupons[index].created)}~${baseDateFormat.format(
+                              controller.coupons[index].created.add(
+                                Duration(
+                                  days: controller
+                                      .coupons[index].coupon.expiration_period,
+                                ),
                               ),
-                            ))}',
+                            )}',
                             size: 14,
                             color: greyColor,
                           ),
@@ -110,7 +112,7 @@ class CouponPage extends GetView<CouponController> {
               },
               title: '쿠폰 등록',
             ),
-          )
+          ),
         ],
       ),
     );

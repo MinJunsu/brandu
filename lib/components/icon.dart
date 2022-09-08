@@ -1,5 +1,5 @@
-import 'package:brandu/screens/home/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
@@ -9,7 +9,8 @@ Widget homeIcon() {
     alignment: Alignment.centerLeft,
     child: IconButton(
       onPressed: () {
-        Get.offAll(() => const HomePage());
+        Get.offAllNamed('/home');
+        // Get.offAll(() => const HomePage());
       },
       icon: SvgPicture.asset('assets/icons/home.svg'),
     ),
@@ -35,7 +36,7 @@ Widget searchIcon() {
     alignment: Alignment.centerLeft,
     child: IconButton(
       onPressed: () {
-        // Get.to(() => const SearchPage());
+        Get.toNamed('/search');
       },
       icon: SvgPicture.asset('assets/icons/search.svg'),
     ),
@@ -43,12 +44,17 @@ Widget searchIcon() {
 }
 
 Widget infoIcon() {
+  const FlutterSecureStorage storage = FlutterSecureStorage();
   return Container(
     width: 40,
     alignment: Alignment.centerLeft,
     child: IconButton(
-      onPressed: () {
-        // Get.to(() => const ProfilePage());
+      onPressed: () async {
+        if (await storage.read(key: 'ACCESS_TOKEN') != null) {
+          Get.toNamed('/profile');
+        } else {
+          Get.toNamed('login');
+        }
       },
       icon: SvgPicture.asset('assets/icons/info.svg'),
     ),

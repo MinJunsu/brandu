@@ -16,254 +16,261 @@ class BasketPage extends GetView<BasketController> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
+    return Obx(() {
+      if (controller.baskets.isEmpty) {
+        return Container(
+          width: double.infinity,
           decoration: borderBottom(),
           child: Container(
+            alignment: Alignment.center,
             margin: const EdgeInsets.symmetric(
-              vertical: 15,
+              horizontal: 25,
+              vertical: 40,
             ),
+            child: const NotoText(
+              '내역이 존재하지 않습니다.',
+              size: 12,
+              color: mainColor,
+            ),
+          ),
+        );
+      }
+      return Column(
+        children: [
+          Container(
+            decoration: borderBottom(),
             child: Container(
               margin: const EdgeInsets.symmetric(
-                horizontal: 25,
+                vertical: 15,
               ),
-              padding: const EdgeInsets.all(10),
-              child: BoxContainer(
-                height: 45,
-                color: lightMainColor,
-                child: Row(
-                  children: [
-                    CircleCheckBox(
-                      isChecked:
-                          controller.checkedList.every((element) => element),
-                      onChanged: controller.toggleCheckedList,
-                    ),
-                    const NotoText(
-                      '전체 선택/해제',
-                      size: 14,
-                      color: Colors.black,
-                      isBold: true,
-                    ),
-                  ],
+              child: Container(
+                margin: const EdgeInsets.symmetric(
+                  horizontal: 25,
                 ),
-              ),
-            ),
-          ),
-        ),
-        Expanded(
-          child: SingleChildScrollView(
-            child: ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: controller.baskets.length,
-              itemBuilder: (context, index) {
-                Basket basket = controller.baskets[index];
-                return Container(
-                  decoration: borderBottom(),
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(
-                      vertical: 20,
-                      horizontal: 25,
-                    ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: 100,
-                          height: 100,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: NetworkImage(
-                                basket.product.backdrop_image!,
-                              ),
-                            ),
-                          ),
-                          child: Container(
-                            alignment: Alignment.topLeft,
-                            margin: const EdgeInsets.all(0),
-                            child: SizedBox(
-                              width: 30,
-                              height: 30,
-                              child: CircleCheckBox(
-                                isChecked: controller.checkedList[index],
-                                onChanged: (checked) {},
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 15,
-                        ),
-                        SizedBox(
-                          height: 100,
-                          child: Column(
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  NotoText(
-                                    basket.product.name,
-                                    size: 12,
-                                    color: greyColor,
-                                  ),
-                                  Row(
-                                    children: [
-                                      NotoText(
-                                        currencyFormat
-                                            .format(basket.product.price),
-                                        size: 12,
-                                        color: Colors.black,
-                                        isBold: true,
-                                      ),
-                                      const NotoText(
-                                        ' 원',
-                                        size: 12,
-                                        color: Colors.black,
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                              const Spacer(),
-                              Counter(
-                                count: controller.counts[index],
-                                add: () => controller.incrementCount(index),
-                                sub: () => controller.decrementCount(index),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const Spacer(),
-                        SizedBox(
-                          height: 100,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              IconButton(
-                                onPressed: () async {
-                                  // bool flag = await AccountsClient()
-                                  //     .deleteBucket(widget.bucket.id);
-                                },
-                                icon: SvgPicture.asset(
-                                  'assets/icons/close.svg',
-                                ),
-                              ),
-                              const Spacer(),
-                              NotoText(
-                                '${currencyFormat.format(basket.product.price * controller.counts[index])} 원',
-                                size: 12,
-                                color: greyColor,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              },
-            ),
-          ),
-        ),
-        Container(
-          decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 2,
-                blurRadius: 7,
-              ),
-            ],
-            color: Colors.white,
-          ),
-          child: Container(
-            margin: const EdgeInsets.only(
-              top: 20,
-              bottom: 20,
-            ),
-            child: Container(
-              margin: const EdgeInsets.symmetric(
-                horizontal: 65,
-              ),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                padding: const EdgeInsets.all(10),
+                child: BoxContainer(
+                  height: 45,
+                  color: lightMainColor,
+                  child: Row(
                     children: [
-                      const NotoText('주문 금액', size: 12, color: greyColor),
-                      NotoText(
-                        '${currencyFormat.format(controller.orderPrice)}원',
-                        size: 12,
-                        color: Colors.black,
+                      CircleCheckBox(
+                        isChecked:
+                            controller.checkedList.every((element) => element),
+                        onChanged: controller.toggleCheckedList,
                       ),
-                    ],
-                  ),
-                  const SizedBox(height: 5),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      NotoText('배송비', size: 12, color: greyColor),
-                      NotoText('3,000원', size: 12, color: Colors.black),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const NotoText('합계금액', size: 14, color: greyColor),
-                      NotoText(
-                        '${currencyFormat.format(controller.orderPrice + 3000)}원',
+                      const NotoText(
+                        '전체 선택/해제',
                         size: 14,
                         color: Colors.black,
                         isBold: true,
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      // Get.to(
-                      //   () => OrderPage(
-                      //     buckets: List<Bucket>.from(
-                      //       snapshot.requireData.mapIndexed(
-                      //         (index, element) => Bucket(
-                      //           id: element.id,
-                      //           product: element.product,
-                      //           amount: counts[index],
-                      //           is_purchase: element.is_purchase,
-                      //         ),
-                      //       ),
-                      //     ),
-                      //     sumPrice: orderPrice,
-                      //   ),
-                      // );
-                    },
-                    child: BoxContainer(
-                      height: 45,
-                      color: mainColor,
-                      child: Container(
-                        alignment: Alignment.center,
-                        child: const NotoText(
-                          '구매하기',
-                          size: 12,
-                          isBold: true,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+                ),
               ),
             ),
           ),
-        ),
-      ],
-    );
+          Expanded(
+            child: SingleChildScrollView(
+              child: ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: controller.baskets.length,
+                itemBuilder: (context, index) {
+                  Basket basket = controller.baskets[index];
+                  return Container(
+                    decoration: borderBottom(),
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(
+                        vertical: 20,
+                        horizontal: 25,
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: 100,
+                            height: 100,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              image: DecorationImage(
+                                fit: BoxFit.scaleDown,
+                                image: NetworkImage(
+                                  basket.product.backdrop_image!,
+                                ),
+                              ),
+                            ),
+                            child: Container(
+                              alignment: Alignment.topLeft,
+                              margin: const EdgeInsets.all(0),
+                              child: SizedBox(
+                                width: 30,
+                                height: 30,
+                                child: CircleCheckBox(
+                                  isChecked: controller.checkedList[index],
+                                  onChanged: (checked) {
+                                    controller.toggleCheckedListIndex(
+                                        index, checked);
+                                  },
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 15,
+                          ),
+                          SizedBox(
+                            height: 100,
+                            child: Column(
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    NotoText(
+                                      basket.product.name,
+                                      size: 14,
+                                      color: greyColor,
+                                    ),
+                                    Row(
+                                      children: [
+                                        NotoText(
+                                          currencyFormat
+                                              .format(basket.product.price),
+                                          size: 12,
+                                          color: Colors.black,
+                                          isBold: true,
+                                        ),
+                                        const NotoText(
+                                          ' 원',
+                                          size: 12,
+                                          color: Colors.black,
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                                const Spacer(),
+                                Counter(
+                                  count: controller.counts[index],
+                                  add: () => controller.incrementCount(index),
+                                  sub: () => controller.decrementCount(index),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const Spacer(),
+                          SizedBox(
+                            height: 100,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                IconButton(
+                                  onPressed: () =>
+                                      controller.removeBasket(index),
+                                  icon: SvgPicture.asset(
+                                    'assets/icons/close.svg',
+                                  ),
+                                ),
+                                const Spacer(),
+                                NotoText(
+                                  '${currencyFormat.format(basket.product.price * controller.counts[index])} 원',
+                                  size: 12,
+                                  color: greyColor,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 2,
+                  blurRadius: 7,
+                ),
+              ],
+              color: Colors.white,
+            ),
+            child: Container(
+              margin: const EdgeInsets.only(
+                top: 20,
+                bottom: 20,
+              ),
+              child: Container(
+                margin: const EdgeInsets.symmetric(
+                  horizontal: 65,
+                ),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const NotoText('주문 금액', size: 12, color: greyColor),
+                        NotoText(
+                          '${currencyFormat.format(controller.orderPrice)}원',
+                          size: 12,
+                          color: Colors.black,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 5),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: const [
+                        NotoText('배송비', size: 12, color: greyColor),
+                        NotoText('3,000원', size: 12, color: Colors.black),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const NotoText('합계금액', size: 14, color: greyColor),
+                        NotoText(
+                          '${currencyFormat.format(controller.orderPrice + 3000)}원',
+                          size: 14,
+                          color: Colors.black,
+                          isBold: true,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Get.toNamed('/order');
+                      },
+                      child: BoxContainer(
+                        height: 45,
+                        color: mainColor,
+                        child: Container(
+                          alignment: Alignment.center,
+                          child: const NotoText(
+                            '구매하기',
+                            size: 12,
+                            isBold: true,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+    });
   }
 }

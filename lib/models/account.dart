@@ -21,7 +21,7 @@ class Platform {
 
 @JsonSerializable()
 class Profile {
-  final int id;
+  final int? id;
   final String? profile_image,
       nickname,
       name,
@@ -29,10 +29,10 @@ class Profile {
       phone_number,
       social_link,
       description;
-  final List<Platform> platforms;
+  final List<Platform>? platforms;
 
   Profile({
-    required this.id,
+    this.id,
     this.profile_image,
     this.nickname,
     this.name,
@@ -40,7 +40,7 @@ class Profile {
     this.phone_number,
     this.social_link,
     this.description,
-    required this.platforms,
+    this.platforms,
   });
 
   factory Profile.fromJson(Map<String, dynamic> json) =>
@@ -162,10 +162,12 @@ class Review {
 class Wish {
   final int id;
   final SimpleProduct product;
+  final bool is_basket;
 
   Wish({
     required this.id,
     required this.product,
+    required this.is_basket,
   });
 
   factory Wish.fromJson(Map<String, dynamic> json) => _$WishFromJson(json);

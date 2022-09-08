@@ -1,10 +1,12 @@
+import 'package:brandu/viewmodels/profile/order/main.dart';
 import 'package:brandu/widgets/base/border.dart';
 import 'package:brandu/widgets/base/box-container.dart';
 import 'package:brandu/widgets/base/button.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class OrderPage extends StatelessWidget {
-  const OrderPage({Key? key}) : super(key: key);
+class ProfileOrderPage extends GetView<ProfileOrderController> {
+  const ProfileOrderPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

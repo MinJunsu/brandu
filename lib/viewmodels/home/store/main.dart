@@ -1,23 +1,55 @@
+import 'package:brandu/models/event.dart';
 import 'package:brandu/models/product.dart';
+import 'package:brandu/services/accounts.dart';
+import 'package:brandu/services/auth_dio.dart';
+import 'package:brandu/services/events.dart';
+import 'package:brandu/services/products.dart';
+import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 
 class StoreController extends GetxController {
-  List<MainCategory> _categories = [];
-  List<SimpleProduct> _hotDealProducts = [];
-  List<SimpleProduct> _monthlyProducts = [];
+  final RxList<Advertisement> _carousels = <Advertisement>[].obs;
+  final RxList<MainCategory> _categories = <MainCategory>[].obs;
+  final RxList<SimpleProduct> _hotDealProducts = <SimpleProduct>[].obs;
+  final RxList<SimpleProduct> _monthlyProducts = <SimpleProduct>[].obs;
 
-  List<MainCategory> get categories => _categories;
+  RxList<Advertisement> get carousels => _carousels;
 
-  List<SimpleProduct> get hotDealProducts => _hotDealProducts;
+  RxList<MainCategory> get categories => _categories;
 
-  List<SimpleProduct> get monthlyProducts => _monthlyProducts;
+  RxList<SimpleProduct> get hotDealProducts => _hotDealProducts;
 
-  StorePageViewModel() {
-    getCategories();
-    getHotDealProducts();
+  RxList<SimpleProduct> get monthlyProducts => _monthlyProducts;
+
+  @override
+  void onInit() {
+    super.onInit();
+    fetchCarousels();
+    fetchCategories();
+    fetchHotDealProducts();
   }
 
-  getHotDealProducts() async {}
+  void addToWishList(int id) async {
+    await AccountClient(await authDio()).postWishes(id);
+    fetchHotDealProducts();
+  }
 
-  getCategories() async {}
+  fetchCarousels() async {
+    Dio dio = Dio();
+    List<Advertisement> carousels = await EventClient(dio).getCarousel();
+    _carousels(carousels);
+  }
+
+  fetchHotDealProducts() async {
+    Dio dio = Dio();
+    List<SimpleProduct> products = await ProductClient(dio).getHotDeals();
+    _hotDealProducts(products);
+  }
+
+  fetchCategories() async {
+    Dio dio = Dio();
+    List<MainCategory> categories =
+        await ProductClient(dio).getMainCategories();
+    _categories(categories);
+  }
 }

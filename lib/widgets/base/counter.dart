@@ -35,18 +35,26 @@ class _CounterState extends State<Counter> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          GestureDetector(
-            onTap: widget.sub,
-            child: SvgPicture.asset('assets/icons/minus-green.svg'),
+          SizedBox(
+            width: 15,
+            height: 15,
+            child: GestureDetector(
+              onTap: widget.sub,
+              child: SvgPicture.asset('assets/icons/minus-green.svg'),
+            ),
           ),
           NotoText(
             widget.count.toString().padLeft(2, '0'),
             size: 12,
             color: Colors.black,
           ),
-          GestureDetector(
-            onTap: widget.add,
-            child: SvgPicture.asset('assets/icons/plus-green.svg'),
+          SizedBox(
+            width: 15,
+            height: 15,
+            child: GestureDetector(
+              onTap: widget.add,
+              child: SvgPicture.asset('assets/icons/plus-green.svg'),
+            ),
           ),
         ],
       ),

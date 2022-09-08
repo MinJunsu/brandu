@@ -2,11 +2,11 @@ import 'package:brandu/models/account.dart';
 import 'package:get/get.dart';
 
 class OrderController extends GetxController {
-  bool _visibility = false;
+  final RxBool _visibility = false.obs;
   List<Address> _addresses = [];
   int _addressIndex = 0;
 
-  bool get visibility => _visibility;
+  RxBool get visibility => _visibility;
 
   List<Address> get addresses => _addresses;
 
@@ -17,6 +17,6 @@ class OrderController extends GetxController {
   }
 
   void toggleVisibility() {
-    _visibility = !_visibility;
+    _visibility(!_visibility.value);
   }
 }

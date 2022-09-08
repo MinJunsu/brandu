@@ -18,101 +18,113 @@ class SearchPage extends GetView<SearchController> {
         isSearch: false,
         title: '검색',
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SearchBox(controller: controller.controller),
-          Container(
-            margin: const EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 10,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const NotoText(
-                  '최근 검색어',
-                  size: 16,
-                  color: Colors.black,
-                  isBold: true,
-                ),
-                Container(
-                  margin: const EdgeInsets.symmetric(
-                    vertical: 15,
-                    horizontal: 5,
+      body: Obx(
+        () => Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SearchBox(controller: controller.controller),
+            Container(
+              margin: const EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 10,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const NotoText(
+                    '최근 검색어',
+                    size: 16,
+                    color: Colors.black,
+                    isBold: true,
                   ),
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Wrap(
-                      direction: Axis.horizontal,
-                      spacing: 10,
-                      children: controller.recentSearches
-                          .map(
-                            (recentSearch) => TagBox(
-                              id: recentSearch.id,
-                              title: recentSearch.search_word,
-                            ),
-                          )
-                          .toList(),
+                  Container(
+                    margin: const EdgeInsets.symmetric(
+                      vertical: 15,
+                      horizontal: 5,
                     ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Container(
-                margin: const EdgeInsets.symmetric(
-                  horizontal: 35,
-                  vertical: 10,
-                ),
-                child: ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: controller.searchRanks.length,
-                  itemBuilder: (context, index) {
-                    SearchRank searchRank = controller.searchRanks[index];
-                    return Container(
-                      margin: const EdgeInsets.symmetric(
-                        vertical: 5,
-                      ),
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              NotoText(
-                                (index + 1).toString(),
-                                size: 16,
-                                color: mainColor,
-                                isBold: true,
-                              ),
-                              const SizedBox(
-                                width: 15,
-                              ),
-                              NotoText(
-                                searchRank.search_word,
-                                size: 16,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: controller.recentSearches.isNotEmpty
+                          ? Wrap(
+                              direction: Axis.horizontal,
+                              spacing: 10,
+                              children: controller.recentSearches
+                                  .map(
+                                    (recentSearch) => TagBox(
+                                      id: recentSearch.id,
+                                      title: recentSearch.search_word,
+                                    ),
+                                  )
+                                  .toList(),
+                            )
+                          : Container(
+                              alignment: Alignment.center,
+                              height: 50,
+                              child: const NotoText(
+                                '최근 검색어가 없습니다.',
+                                size: 14,
                                 color: Colors.black,
                               ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Container(
-                            height: 1,
-                            color: lightGreyColor,
-                          ),
-                        ],
-                      ),
-                    );
-                  },
+                            ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Container(
+                  margin: const EdgeInsets.symmetric(
+                    horizontal: 35,
+                    vertical: 10,
+                  ),
+                  child: ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: controller.searchRanks.length,
+                    itemBuilder: (context, index) {
+                      SearchRank searchRank = controller.searchRanks[index];
+                      return Container(
+                        margin: const EdgeInsets.symmetric(
+                          vertical: 5,
+                        ),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                NotoText(
+                                  (index + 1).toString(),
+                                  size: 16,
+                                  color: mainColor,
+                                  isBold: true,
+                                ),
+                                const SizedBox(
+                                  width: 15,
+                                ),
+                                NotoText(
+                                  searchRank.search_word,
+                                  size: 16,
+                                  color: Colors.black,
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              height: 1,
+                              color: lightGreyColor,
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -164,7 +176,7 @@ class SearchBox extends StatelessWidget {
               ),
             ),
             GestureDetector(
-              onTap: () {},
+              onTap: () => Get.back(),
               child: Container(
                 margin: const EdgeInsets.only(left: 10),
                 child: const NotoText('취소', size: 16, color: Colors.black),

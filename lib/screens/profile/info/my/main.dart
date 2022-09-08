@@ -94,32 +94,32 @@ class ProfileMyPage extends GetView<ProfileMyController> {
                                 InputBox(
                                   title: '닉네임',
                                   onSaved: controller.setNickname,
-                                  initialValue: controller.nickname,
+                                  initialValue: controller.nickname.value,
                                 ),
                                 InputBox(
                                   title: '이름',
                                   onSaved: controller.setName,
-                                  initialValue: controller.name,
+                                  initialValue: controller.name.value,
                                 ),
                                 InputBox(
                                   title: '연락처',
                                   onSaved: controller.setPhoneNumber,
-                                  initialValue: controller.phoneNumber,
+                                  initialValue: controller.phoneNumber.value,
                                 ),
                                 InputBox(
                                   title: '이메일',
                                   onSaved: controller.setEmail,
-                                  initialValue: controller.email,
+                                  initialValue: controller.email.value,
                                 ),
                                 InputBox(
                                   title: 'SNS',
                                   onSaved: controller.setSnsLink,
-                                  initialValue: controller.snsLink,
+                                  initialValue: controller.snsLink.value,
                                 ),
                                 InputBox(
                                   title: '소개',
                                   onSaved: controller.setDescription,
-                                  initialValue: controller.description,
+                                  initialValue: controller.description.value,
                                 ),
                               ],
                             ),

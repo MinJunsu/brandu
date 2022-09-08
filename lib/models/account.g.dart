@@ -17,7 +17,7 @@ Map<String, dynamic> _$PlatformToJson(Platform instance) => <String, dynamic>{
     };
 
 Profile _$ProfileFromJson(Map<String, dynamic> json) => Profile(
-      id: json['id'] as int,
+      id: json['id'] as int?,
       profile_image: json['profile_image'] as String?,
       nickname: json['nickname'] as String?,
       name: json['name'] as String?,
@@ -25,8 +25,8 @@ Profile _$ProfileFromJson(Map<String, dynamic> json) => Profile(
       phone_number: json['phone_number'] as String?,
       social_link: json['social_link'] as String?,
       description: json['description'] as String?,
-      platforms: (json['platforms'] as List<dynamic>)
-          .map((e) => Platform.fromJson(e as Map<String, dynamic>))
+      platforms: (json['platforms'] as List<dynamic>?)
+          ?.map((e) => Platform.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
@@ -130,11 +130,13 @@ Map<String, dynamic> _$ReviewToJson(Review instance) => <String, dynamic>{
 Wish _$WishFromJson(Map<String, dynamic> json) => Wish(
       id: json['id'] as int,
       product: SimpleProduct.fromJson(json['product'] as Map<String, dynamic>),
+      is_basket: json['is_basket'] as bool,
     );
 
 Map<String, dynamic> _$WishToJson(Wish instance) => <String, dynamic>{
       'id': instance.id,
       'product': instance.product,
+      'is_basket': instance.is_basket,
     };
 
 Basket _$BasketFromJson(Map<String, dynamic> json) => Basket(
