@@ -25,93 +25,91 @@ class ServicePage extends GetView<ServiceController> {
         title: '고객센터',
         actions: const <Widget>[],
       ),
-      body: Column(
-        children: [
-          /// 검색 화면
-          // Container(
-          //   decoration: bottomBorder(),
-          //   child: Container(
-          //     margin: const EdgeInsets.symmetric(
-          //       horizontal: 15,
-          //       vertical: 20,
-          //     ),
-          //     child: SearchBox(controller),
-          //   ),
-          // ),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  TitleBox(
-                    title: '서비스 주요안내',
-                    children: controller.services.main_infos
-                        .map(
-                          (mainInfo) => GestureDetector(
-                            onTap: () {
-                              // Get.to(() => const MainInfoPage());
-                            },
-                            child: NotoText(
-                              mainInfo.title,
-                              size: 14,
-                              color: greyColor,
+      body: Obx(
+        () => Column(
+          children: [
+            /// 검색 화면
+            // Container(
+            //   decoration: bottomBorder(),
+            //   child: Container(
+            //     margin: const EdgeInsets.symmetric(
+            //       horizontal: 15,
+            //       vertical: 20,
+            //     ),
+            //     child: SearchBox(controller),
+            //   ),
+            // ),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    TitleBox(
+                      title: '서비스 주요안내',
+                      onPressed: () =>
+                          Get.toNamed('/profile/services/main-info'),
+                      children: controller.services.value.main_infos
+                          .map(
+                            (mainInfo) => GestureDetector(
+                              onTap: () {},
+                              child: NotoText(
+                                mainInfo.title,
+                                size: 14,
+                                color: greyColor,
+                              ),
                             ),
-                          ),
-                        )
-                        .toList(),
-                  ),
-                  TitleBox(
-                    title: '자주 묻는 질문',
-                    children: controller.services.faqs
-                        .map(
-                          (faq) => GestureDetector(
-                            onTap: () {
-                              // Get.to(() => const FAQPage());
-                            },
-                            child: NotoText(
-                              faq.title,
-                              size: 14,
-                              color: greyColor,
+                          )
+                          .toList(),
+                    ),
+                    TitleBox(
+                      title: '자주 묻는 질문',
+                      onPressed: () => Get.toNamed('/profile/services/faq'),
+                      children: controller.services.value.faqs
+                          .map(
+                            (faq) => GestureDetector(
+                              onTap: () {},
+                              child: NotoText(
+                                faq.title,
+                                size: 14,
+                                color: greyColor,
+                              ),
                             ),
-                          ),
-                        )
-                        .toList(),
-                  ),
-                  controller.services.inquiries != null
-                      ? TitleBox(
-                          title: '1:1 문의내역',
-                          children: controller.services.inquiries!
-                              .map(
-                                (inquiry) => GestureDetector(
-                                  onTap: () {
-                                    // Get.to(() => InquiryAnswerPage(inquiry));
-                                  },
-                                  child: NotoText(
-                                    '${inquiry.is_answer ? "[답변완료]" : "[답변미완료]"} ${inquiry.title}',
-                                    size: 14,
-                                    color: greyColor,
+                          )
+                          .toList(),
+                    ),
+                    controller.services.value.inquiries != null
+                        ? TitleBox(
+                            title: '1:1 문의내역',
+                            onPressed: () {},
+                            children: controller.services.value.inquiries!
+                                .map(
+                                  (inquiry) => GestureDetector(
+                                    onTap: () {},
+                                    child: NotoText(
+                                      '${inquiry.is_answer ? "[답변완료]" : "[답변미완료]"} ${inquiry.title}',
+                                      size: 14,
+                                      color: greyColor,
+                                    ),
                                   ),
-                                ),
-                              )
-                              .toList(),
-                        )
-                      : Container(),
-                ],
+                                )
+                                .toList(),
+                          )
+                        : Container(),
+                  ],
+                ),
               ),
             ),
-          ),
-          Container(
-            margin: const EdgeInsets.symmetric(
-              horizontal: 25,
-              vertical: 30,
-            ),
-            child: ButtonBox(
-              title: '1:1 문의하기',
-              onPressed: () {
-                // Get.to(() => const ServiceInquiryPage());
-              },
-            ),
-          )
-        ],
+            Container(
+              margin: const EdgeInsets.symmetric(
+                horizontal: 25,
+                vertical: 30,
+              ),
+              child: ButtonBox(
+                title: '1:1 문의하기',
+                onPressed: () => Get.toNamed('/profile/services/inquiry'),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

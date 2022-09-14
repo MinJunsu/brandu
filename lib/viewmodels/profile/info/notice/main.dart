@@ -1,22 +1,22 @@
 import 'package:brandu/models/service.dart';
+import 'package:brandu/services/service.dart';
+import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 
 class NoticeController extends GetxController {
-  List<Notice> _notices = [];
-  List<NoticeWithExpanded> _noticeWithExpanded = [];
+  final RxList<Notice> _notices = <Notice>[].obs;
 
   List<Notice> get notices => _notices;
 
-  List<NoticeWithExpanded> get noticeWithExpanded => _noticeWithExpanded;
-
-  void setExpanded(int index, bool isExpanded) {
-    _noticeWithExpanded[index].expanded = !isExpanded;
+  @override
+  void onInit() {
+    super.onInit();
+    fetchNotices();
   }
-}
 
-class NoticeWithExpanded {
-  final Notice notice;
-  bool expanded;
-
-  NoticeWithExpanded(this.notice, this.expanded);
+  void fetchNotices() async {
+    List<Notice> notices = await ServiceClient(Dio()).getNotices();
+    print(notices);
+    _notices(notices);
+  }
 }

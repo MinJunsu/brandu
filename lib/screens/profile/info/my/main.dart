@@ -3,6 +3,7 @@ import 'package:brandu/components/icon.dart';
 import 'package:brandu/components/text.dart';
 import 'package:brandu/viewmodels/profile/info/my/main.dart';
 import 'package:brandu/widgets/appbar.dart';
+import 'package:brandu/widgets/base/box-container.dart';
 import 'package:brandu/widgets/base/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -134,77 +135,6 @@ class ProfileMyPage extends GetView<ProfileMyController> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class InputBox extends StatefulWidget {
-  final String title;
-  final String initialValue;
-  final Function(String?) onSaved;
-
-  // final String? Function(String?) validator;
-
-  const InputBox({
-    required this.title,
-    required this.onSaved,
-    required this.initialValue,
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  State<InputBox> createState() => _InputBoxState();
-}
-
-class _InputBoxState extends State<InputBox> {
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        SizedBox(
-          width: 50,
-          child: NotoText(widget.title, size: 14, color: greyColor),
-        ),
-        const SizedBox(
-          width: 30,
-        ),
-        SizedBox(
-          width: 250,
-          height: 30,
-          child: TextFormField(
-            style: const TextStyle(
-              fontFamily: 'Noto Sans KR',
-              fontSize: 14,
-              height: 1.4,
-              letterSpacing: -0.5,
-              wordSpacing: -0.5,
-              fontWeight: FontWeight.w400,
-              decoration: TextDecoration.none,
-            ),
-            initialValue: widget.initialValue,
-            autovalidateMode: AutovalidateMode.always,
-            onSaved: widget.onSaved,
-            decoration: const InputDecoration(
-              contentPadding: EdgeInsets.symmetric(
-                horizontal: 10,
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10),
-                ),
-                borderSide: BorderSide(width: 1, color: lightGreyColor),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10),
-                ),
-                borderSide: BorderSide(width: 1, color: lightGreyColor),
-              ),
-            ),
-            keyboardType: TextInputType.text,
-          ),
-        )
-      ],
     );
   }
 }

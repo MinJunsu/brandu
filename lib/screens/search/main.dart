@@ -23,21 +23,24 @@ class SearchPage extends GetView<SearchController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SearchBox(controller: controller.controller),
-            Container(
-              margin: const EdgeInsets.symmetric(
-                horizontal: 20,
-                vertical: 10,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const NotoText(
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 10,
+                  ),
+                  child: const NotoText(
                     '최근 검색어',
                     size: 16,
                     color: Colors.black,
                     isBold: true,
                   ),
-                  Container(
+                ),
+                Container(
+                  decoration: borderBottom(),
+                  child: Container(
                     margin: const EdgeInsets.symmetric(
                       vertical: 15,
                       horizontal: 5,
@@ -58,18 +61,20 @@ class SearchPage extends GetView<SearchController> {
                                   .toList(),
                             )
                           : Container(
+                              margin: const EdgeInsets.only(bottom: 10),
                               alignment: Alignment.center,
+                              width: (MediaQuery.of(context).size.width - 30),
                               height: 50,
                               child: const NotoText(
                                 '최근 검색어가 없습니다.',
                                 size: 14,
-                                color: Colors.black,
+                                color: mainColor,
                               ),
                             ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
             Expanded(
               child: SingleChildScrollView(

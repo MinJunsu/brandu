@@ -20,31 +20,46 @@ class AddressPage extends GetView<AddressController> {
         leading: Row(
           children: [
             backIcon(),
-            homeIcon(),
           ],
         ),
         title: '배송지 관리',
-        actions: const <Widget>[],
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              child: ListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  Address address = controller.addresses[index];
-                  return AddressBox(
-                    address: address,
-                    onPressed: controller.onClick,
-                  );
-                },
-                itemCount: controller.addresses.length,
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Get.toNamed('/profile/address/create'),
+            child: Container(
+              margin: const EdgeInsets.only(
+                right: 10,
               ),
+              alignment: Alignment.center,
+              child: const NotoText('추가', size: 16, isBold: true),
             ),
           ),
         ],
+      ),
+      body: Obx(
+        () => Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    Address address = controller.addresses[index];
+                    return AddressBox(
+                      address: address,
+                      onPressed: () => Get.toNamed(
+                        '/profile/address/create',
+                        arguments: index,
+                      ),
+                    );
+                  },
+                  itemCount: controller.addresses.length,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -82,16 +97,18 @@ class AddressBox extends StatelessWidget {
                     const SizedBox(
                       width: 20,
                     ),
-                    Container(
-                      width: 32,
-                      height: 22,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: mainColor,
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: const NotoText('대표', size: 12, isBold: true),
-                    ),
+                    address.is_main
+                        ? Container(
+                            width: 32,
+                            height: 22,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: mainColor,
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            child: const NotoText('대표', size: 12, isBold: true),
+                          )
+                        : Container(),
                   ],
                 ),
                 SizedBox(

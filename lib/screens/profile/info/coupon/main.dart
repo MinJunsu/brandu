@@ -26,94 +26,96 @@ class CouponPage extends GetView<CouponController> {
         title: '쿠폰 내역',
         actions: const <Widget>[],
       ),
-      body: Column(
-        children: [
-          Container(
-            width: double.infinity,
-            decoration: borderBottom(),
-            child: Container(
-              margin: const EdgeInsets.symmetric(
-                horizontal: 20,
-                vertical: 20,
-              ),
-              child: NotoText(
-                '보유 쿠폰 ${controller.coupons.length}개',
-                size: 14,
-                color: Colors.black,
+      body: Obx(
+        () => Column(
+          children: [
+            Container(
+              width: double.infinity,
+              decoration: borderBottom(),
+              child: Container(
+                margin: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 20,
+                ),
+                child: NotoText(
+                  '보유 쿠폰 ${controller.coupons.length}개',
+                  size: 14,
+                  color: Colors.black,
+                ),
               ),
             ),
-          ),
-          Expanded(
-            child: SingleChildScrollView(
-              child: ListView.separated(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    decoration: borderBottom(),
-                    child: Container(
-                      margin: const EdgeInsets.symmetric(
-                        horizontal: 25,
-                        vertical: 20,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              NotoText(
-                                controller.coupons[index].coupon.name,
-                                size: 16,
-                                color: Colors.black,
-                              ),
-                              const NotoText(
-                                '적용상품 목록',
-                                size: 12,
-                                color: greyColor,
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          NotoText(
-                            '${baseDateFormat.format(controller.coupons[index].created)}~${baseDateFormat.format(
-                              controller.coupons[index].created.add(
-                                Duration(
-                                  days: controller
-                                      .coupons[index].coupon.expiration_period,
+            Expanded(
+              child: SingleChildScrollView(
+                child: ListView.separated(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                      decoration: borderBottom(),
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: 25,
+                          vertical: 20,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                NotoText(
+                                  controller.coupons[index].coupon.name,
+                                  size: 16,
+                                  color: Colors.black,
                                 ),
-                              ),
-                            )}',
-                            size: 14,
-                            color: greyColor,
-                          ),
-                        ],
+                                const NotoText(
+                                  '적용상품 목록',
+                                  size: 12,
+                                  color: greyColor,
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            NotoText(
+                              '${baseDateFormat.format(controller.coupons[index].created)}~${baseDateFormat.format(
+                                controller.coupons[index].created.add(
+                                  Duration(
+                                    days: controller.coupons[index].coupon
+                                        .expiration_period,
+                                  ),
+                                ),
+                              )}',
+                              size: 14,
+                              color: greyColor,
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-                },
-                separatorBuilder: (BuildContext context, int index) {
-                  return Container();
-                },
-                itemCount: controller.coupons.length,
+                    );
+                  },
+                  separatorBuilder: (BuildContext context, int index) {
+                    return Container();
+                  },
+                  itemCount: controller.coupons.length,
+                ),
               ),
             ),
-          ),
-          Container(
-            margin: const EdgeInsets.symmetric(
-              horizontal: 25,
-              vertical: 30,
+            Container(
+              margin: const EdgeInsets.symmetric(
+                horizontal: 25,
+                vertical: 30,
+              ),
+              child: ButtonBox(
+                onPressed: () {
+                  Get.toNamed('/profile/coupon/create');
+                },
+                title: '쿠폰 등록',
+              ),
             ),
-            child: ButtonBox(
-              onPressed: () {
-                // Get.to(() => const CouponRegisterPage());
-              },
-              title: '쿠폰 등록',
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

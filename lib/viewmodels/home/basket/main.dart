@@ -9,7 +9,6 @@ class BasketController extends GetxController {
   final RxList<int> _counts = <int>[].obs;
   final RxList<Basket> _baskets = <Basket>[].obs;
   final RxList<bool> _checkedList = <bool>[].obs;
-  int _orderPrice = 0;
 
   List<Basket> get baskets => _baskets;
 

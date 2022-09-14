@@ -1,9 +1,11 @@
 import 'package:brandu/components/color.dart';
 import 'package:brandu/components/icon.dart';
 import 'package:brandu/components/text.dart';
+import 'package:brandu/models/service.dart';
 import 'package:brandu/utils/format.dart';
 import 'package:brandu/viewmodels/profile/info/notice/main.dart';
 import 'package:brandu/widgets/appbar.dart';
+import 'package:brandu/widgets/base/border.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -28,52 +30,42 @@ class NoticePage extends GetView<NoticeController> {
         children: [
           Expanded(
             child: SingleChildScrollView(
-              child: ExpansionPanelList(
-                children: controller.noticeWithExpanded
-                    .map(
-                      (notice) => ExpansionPanel(
-                        headerBuilder: (context, isExpanded) {
-                          return Container(
-                            margin: const EdgeInsets.symmetric(
-                              horizontal: 25,
-                              vertical: 10,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                NotoText(
-                                  notice.notice.title,
-                                  size: 14,
-                                  color: Colors.black,
-                                  isBold: isExpanded,
-                                ),
-                                const SizedBox(height: 10),
-                                NotoText(
-                                  baseDateFormat.format(notice.notice.created),
-                                  size: 14,
-                                  color: greyColor,
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                        body: Container(
-                          margin: const EdgeInsets.symmetric(
-                            horizontal: 25,
-                            vertical: 20,
-                          ),
-                          child: NotoText(
-                            notice.notice.description,
-                            size: 14,
-                            color: Colors.black,
-                          ),
+              child: Obx(
+                () => ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: controller.notices.length,
+                  itemBuilder: (item, index) {
+                    Notice notice = controller.notices[index];
+                    return Container(
+                      decoration: borderBottom(),
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: 25,
+                          vertical: 20,
                         ),
-                        isExpanded: notice.expanded,
-                        canTapOnHeader: true,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            NotoText(
+                              notice.title,
+                              size: 16,
+                              color: Colors.black,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            NotoText(
+                              baseDateFormat.format(notice.created),
+                              size: 14,
+                              color: greyColor,
+                            ),
+                          ],
+                        ),
                       ),
-                    )
-                    .toList(),
-                expansionCallback: controller.setExpanded,
+                    );
+                  },
+                ),
               ),
             ),
           ),

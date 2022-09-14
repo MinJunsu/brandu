@@ -57,7 +57,7 @@ class ProfileOrderPage extends GetView<ProfileOrderController> {
           ),
         ),
         ProfileBox(
-          onPressed: () {},
+          onPressed: () => Get.toNamed('/profile/address'),
           icon: 'assets/icons/map.svg',
           title: '배송지 관리',
         ),
@@ -67,7 +67,7 @@ class ProfileOrderPage extends GetView<ProfileOrderController> {
           title: '취소/교환/환불 내역',
         ),
         ProfileBox(
-          onPressed: () {},
+          onPressed: () => Get.toNamed('/profile/review'),
           icon: 'assets/icons/review.svg',
           title: '리뷰 관리',
         ),

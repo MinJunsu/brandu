@@ -1,8 +1,11 @@
 import 'package:brandu/components/color.dart';
 import 'package:brandu/components/text.dart';
+import 'package:brandu/widgets/appbar.dart';
 import 'package:brandu/widgets/base/border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:kpostal/kpostal.dart';
 
 class BoxContainer extends StatelessWidget {
   final Widget child;
@@ -32,10 +35,12 @@ class BoxContainer extends StatelessWidget {
 
 class TitleBox extends StatelessWidget {
   final String title;
+  final Function() onPressed;
   final List<Widget> children;
 
   const TitleBox({
     required this.title,
+    required this.onPressed,
     required this.children,
     Key? key,
   }) : super(key: key);
@@ -56,7 +61,10 @@ class TitleBox extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 NotoText(title, size: 16, color: Colors.black),
-                const NotoText('전체 보기', size: 12, color: greyColor),
+                GestureDetector(
+                  onTap: onPressed,
+                  child: const NotoText('전체 보기', size: 12, color: greyColor),
+                ),
               ],
             ),
             const SizedBox(
@@ -126,6 +134,157 @@ class ProfileBox extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class InputBox extends StatelessWidget {
+  final String title;
+  final String initialValue;
+  final Function(String?) onSaved;
+  final bool enabled;
+  final Function()? onTap;
+
+  const InputBox({
+    required this.title,
+    required this.onSaved,
+    required this.initialValue,
+    this.enabled = true,
+    this.onTap,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        SizedBox(
+          width: 50,
+          child: NotoText(title, size: 14, color: greyColor),
+        ),
+        const SizedBox(
+          width: 30,
+        ),
+        SizedBox(
+          width: 250,
+          height: 30,
+          child: TextFormField(
+            onTap: onTap,
+            style: const TextStyle(
+              fontFamily: 'Noto Sans KR',
+              fontSize: 14,
+              height: 1.4,
+              letterSpacing: -0.5,
+              wordSpacing: -0.5,
+              fontWeight: FontWeight.w400,
+              decoration: TextDecoration.none,
+            ),
+            readOnly: !enabled,
+            enableInteractiveSelection: enabled,
+            initialValue: initialValue,
+            autovalidateMode: AutovalidateMode.always,
+            onSaved: onSaved,
+            decoration: const InputDecoration(
+              contentPadding: EdgeInsets.symmetric(
+                horizontal: 10,
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10),
+                ),
+                borderSide: BorderSide(width: 1, color: lightGreyColor),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10),
+                ),
+                borderSide: BorderSide(width: 1, color: lightGreyColor),
+              ),
+            ),
+            keyboardType: TextInputType.text,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class AddressInputBox extends StatelessWidget {
+  final String title;
+  final String initialValue;
+  final TextEditingController controller;
+  final Function(Kpostal) callback;
+
+  const AddressInputBox({
+    required this.title,
+    required this.initialValue,
+    required this.controller,
+    required this.callback,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        SizedBox(
+          width: 50,
+          child: NotoText(title, size: 14, color: greyColor),
+        ),
+        const SizedBox(
+          width: 30,
+        ),
+        SizedBox(
+          width: 250,
+          height: 30,
+          child: TextField(
+            controller: controller,
+            onTap: () async {
+              Get.to(
+                () => KpostalView(
+                  appBar: CustomAppBar(
+                    appBar: AppBar(),
+                    isBack: true,
+                    title: '주소 검색',
+                    actions: const <Widget>[],
+                  ),
+                  callback: callback,
+                ),
+              );
+            },
+            style: const TextStyle(
+              fontFamily: 'Noto Sans KR',
+              fontSize: 14,
+              height: 1.4,
+              letterSpacing: -0.5,
+              wordSpacing: -0.5,
+              fontWeight: FontWeight.w400,
+              decoration: TextDecoration.none,
+            ),
+            readOnly: true,
+            enableInteractiveSelection: false,
+            // onSaved: onSaved,
+            decoration: const InputDecoration(
+              contentPadding: EdgeInsets.symmetric(
+                horizontal: 10,
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10),
+                ),
+                borderSide: BorderSide(width: 1, color: lightGreyColor),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10),
+                ),
+                borderSide: BorderSide(width: 1, color: lightGreyColor),
+              ),
+            ),
+            keyboardType: TextInputType.text,
+          ),
+        ),
+      ],
     );
   }
 }

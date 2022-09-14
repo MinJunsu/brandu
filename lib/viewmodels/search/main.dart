@@ -1,9 +1,9 @@
 import 'package:brandu/models/search.dart';
 import 'package:brandu/services/auth_dio.dart';
 import 'package:brandu/services/search.dart';
+import 'package:brandu/viewmodels/profile/main.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 
 class SearchController extends GetxController {
@@ -25,8 +25,7 @@ class SearchController extends GetxController {
   }
 
   void fetchRecentSearches() async {
-    const FlutterSecureStorage storage = FlutterSecureStorage();
-    if (await storage.read(key: 'ACCESS_TOKEN') == null) {
+    if (await Get.find<ProfileController>().isAuthenticated()) {
       return;
     }
     List<RecentSearch> recentSearches =

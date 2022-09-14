@@ -1,6 +1,7 @@
 import 'package:brandu/screens/profile/info/main.dart';
 import 'package:brandu/screens/profile/order/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 
 class ProfileController extends GetxController
@@ -8,6 +9,8 @@ class ProfileController extends GetxController
   late TabController controller;
   late List<Widget> tabHeaders;
   late List<Widget> tabs;
+
+  final FlutterSecureStorage storage = const FlutterSecureStorage();
 
   @override
   void onInit() {
@@ -21,6 +24,10 @@ class ProfileController extends GetxController
       ProfileInfoPage(),
       ProfileOrderPage(),
     ];
+  }
+
+  Future<bool> isAuthenticated() async {
+    return await storage.read(key: 'ACCESS_TOKEN') != null;
   }
 
   @override

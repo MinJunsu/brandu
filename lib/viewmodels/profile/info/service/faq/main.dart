@@ -1,35 +1,21 @@
 import 'package:brandu/models/service.dart';
+import 'package:brandu/services/service.dart';
+import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 
 class FAQController extends GetxController {
-  late PaginatedFAQ _faqs;
-  List<FAQWithExpanded> _faqWithExpands = [];
+  final Rx<PaginatedFAQ> _faqs = PaginatedFAQ(count: 0, results: []).obs;
 
-  PaginatedFAQ get faqs => _faqs;
-
-  List<FAQWithExpanded> get faqWithExpands => _faqWithExpands;
+  Rx<PaginatedFAQ> get faqs => _faqs;
 
   @override
   void onInit() {
     super.onInit();
-    _faqWithExpands = List.generate(
-      _faqs.results.length,
-          (index) =>
-          FAQWithExpanded(
-            _faqs.results[index],
-            false,
-          ),
-    );
+    fetchFAQs();
   }
 
-  void setExpanded(int index, bool isExpanded) {
-    _faqWithExpands[index].expanded = !isExpanded;
+  void fetchFAQs() async {
+    PaginatedFAQ paginatedFAQ = await ServiceClient(Dio()).getFAQs();
+    _faqs(paginatedFAQ);
   }
-}
-
-class FAQWithExpanded {
-  final FAQ faq;
-  bool expanded;
-
-  FAQWithExpanded(this.faq, this.expanded);
 }

@@ -26,103 +26,109 @@ class ProfilePointPage extends GetView<ProfilePointController> {
         title: '포인트',
         actions: const <Widget>[],
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            decoration: borderBottom(),
-            child: Container(
+      body: Obx(
+        () => Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              decoration: borderBottom(),
+              child: Container(
+                margin: const EdgeInsets.symmetric(
+                  horizontal: 25,
+                  vertical: 20,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: const [
+                        NotoText('보유 포인트', size: 16, color: Colors.black),
+                        NotoText('BP란?', size: 12, color: Colors.grey),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    NotoText(
+                      '${currencyFormat.format(controller.pointHistory.value.point)} BP',
+                      size: 18,
+                      color: Colors.black,
+                      isBold: true,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Container(
               margin: const EdgeInsets.symmetric(
                 horizontal: 25,
                 vertical: 20,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child:
+                  const NotoText('적립 및 사용 내역', size: 16, color: Colors.black),
+            ),
+            Container(
+              decoration: borderBottom(),
+              child: Row(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      NotoText('보유 포인트', size: 16, color: Colors.black),
-                      NotoText('BP란?', size: 12, color: Colors.grey),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  NotoText(
-                    '${currencyFormat.format(controller.pointHistory.point)} BP',
-                    size: 18,
-                    color: Colors.black,
-                    isBold: true,
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.symmetric(
-              horizontal: 25,
-              vertical: 20,
-            ),
-            child: const NotoText('적립 및 사용 내역', size: 16, color: Colors.black),
-          ),
-          Container(
-            decoration: borderBottom(),
-            child: Row(
-              children: [
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Container(
-                      margin: const EdgeInsets.symmetric(
-                        horizontal: 25,
-                      ),
-                      child: ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: controller.pointHistory.point_history.length,
-                        itemBuilder: (context, index) {
-                          Point point =
-                              controller.pointHistory.point_history[index];
-                          return Container(
-                            margin: const EdgeInsets.symmetric(
-                              vertical: 2,
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    NotoText(
-                                      baseDateFormat.format(point.created),
-                                      size: 14,
-                                      color: greyColor,
-                                    ),
-                                    const SizedBox(width: 15),
-                                    NotoText(
-                                      point.memo,
-                                      size: 14,
-                                      color: greyColor,
-                                    ),
-                                  ],
-                                ),
-                                NotoText(
-                                  '${point.is_use ? '+' : '-'}${currencyFormat.format(point.point)}',
-                                  size: 14,
-                                  color: point.is_use ? Colors.red : mainColor,
-                                  isBold: true,
-                                ),
-                              ],
-                            ),
-                          );
-                        },
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: 25,
+                        ),
+                        child: ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: controller
+                              .pointHistory.value.point_history.length,
+                          itemBuilder: (context, index) {
+                            Point point = controller
+                                .pointHistory.value.point_history[index];
+                            return Container(
+                              margin: const EdgeInsets.symmetric(
+                                vertical: 2,
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      NotoText(
+                                        baseDateFormat.format(point.created),
+                                        size: 14,
+                                        color: greyColor,
+                                      ),
+                                      const SizedBox(width: 15),
+                                      NotoText(
+                                        point.memo,
+                                        size: 14,
+                                        color: greyColor,
+                                      ),
+                                    ],
+                                  ),
+                                  NotoText(
+                                    '${point.is_use ? '+' : '-'}${currencyFormat.format(point.point)}',
+                                    size: 14,
+                                    color:
+                                        point.is_use ? Colors.red : mainColor,
+                                    isBold: true,
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          )
-        ],
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

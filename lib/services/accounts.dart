@@ -11,6 +11,15 @@ abstract class AccountClient {
   @GET('/me/')
   Future<Profile> getProfile();
 
+  @GET('/point/')
+  Future<PointHistory> getPointHistory();
+
+  @GET('/notify/')
+  Future<Notify> getNotify();
+
+  @PATCH('/notify/')
+  Future<void> patchNotify(@Body() Notify notify);
+
   @GET('/baskets/')
   Future<List<Basket>> getBaskets();
 
@@ -31,4 +40,31 @@ abstract class AccountClient {
 
   @DELETE('/wish/{id}/')
   Future<void> deleteWishes(@Path("id") int id);
+
+  @GET('/review/')
+  Future<List<Review>> getReviews();
+
+  @POST('/review/')
+  Future<Review> postReview(@Body() Review review);
+
+  @PUT('/review/{id}/')
+  Future<void> putReview(@Path('id') int id, @Body() Review review);
+
+  @DELETE('/review/{id}/')
+  Future<void> deleteReview(@Path('id') int id);
+
+  @GET('/addresses/')
+  Future<List<Address>> getAddresses();
+
+  @POST('/addresses/')
+  Future<Address> postAddresses(@Body() Address address);
+
+  @PATCH('/address/{id}/')
+  Future<Address> patchAddress(@Path("id") int id, @Body() Address address);
+
+  @DELETE('/address/{id}/')
+  Future<void> deleteAddress(@Path('id') int id);
+
+  @PATCH('/address/{id}/main/')
+  Future<void> patchAddressMain(@Path('id') int id);
 }

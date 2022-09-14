@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 class OrderController extends GetxController {
   final RxBool _visibility = false.obs;
-  List<Address> _addresses = [];
+  final List<Address> _addresses = [];
   int _addressIndex = 0;
 
   RxBool get visibility => _visibility;

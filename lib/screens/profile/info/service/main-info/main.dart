@@ -1,6 +1,10 @@
+import 'package:brandu/components/color.dart';
 import 'package:brandu/components/text.dart';
+import 'package:brandu/models/service.dart';
+import 'package:brandu/utils/format.dart';
 import 'package:brandu/viewmodels/profile/info/service/main-info/main.dart';
 import 'package:brandu/widgets/appbar.dart';
+import 'package:brandu/widgets/base/border.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -20,52 +24,43 @@ class MainInfoPage extends GetView<MainInfoController> {
         children: [
           Expanded(
             child: SingleChildScrollView(
-              child: ExpansionPanelList(
-                children: controller.mainIntoWithExpands
-                    .map(
-                      (mainInfo) => ExpansionPanel(
-                        headerBuilder: (context, isExpanded) {
-                          return Container(
-                            margin: const EdgeInsets.symmetric(
-                              horizontal: 25,
-                              vertical: 10,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                isExpanded
-                                    ? NotoText(
-                                        mainInfo.mainInfo.title,
-                                        size: 14,
-                                        color: Colors.black,
-                                        isBold: true,
-                                      )
-                                    : NotoText(
-                                        mainInfo.mainInfo.title,
-                                        size: 14,
-                                        color: Colors.black,
-                                      ),
-                              ],
-                            ),
-                          );
-                        },
-                        body: Container(
-                          margin: const EdgeInsets.symmetric(
-                            horizontal: 25,
-                            vertical: 20,
-                          ),
-                          child: NotoText(
-                            mainInfo.mainInfo.description,
-                            size: 14,
-                            color: Colors.black,
-                          ),
+              child: Obx(
+                () => ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: controller.mainInfo.value.results.length,
+                  itemBuilder: (item, index) {
+                    MainInfo mainInfo =
+                        controller.mainInfo.value.results[index];
+                    return Container(
+                      decoration: borderBottom(),
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: 25,
+                          vertical: 20,
                         ),
-                        isExpanded: mainInfo.expanded,
-                        canTapOnHeader: true,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            NotoText(
+                              mainInfo.title,
+                              size: 16,
+                              color: Colors.black,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            NotoText(
+                              baseDateFormat.format(mainInfo.created),
+                              size: 14,
+                              color: greyColor,
+                            ),
+                          ],
+                        ),
                       ),
-                    )
-                    .toList(),
-                expansionCallback: controller.setExpanded,
+                    );
+                  },
+                ),
               ),
             ),
           ),

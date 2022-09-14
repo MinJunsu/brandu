@@ -10,4 +10,7 @@ abstract class EventClient {
 
   @GET('/carousel/')
   Future<List<Advertisement>> getCarousel();
+
+  @GET('/coupons/')
+  Future<List<CouponHold>> getCoupons();
 }

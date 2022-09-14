@@ -40,12 +40,14 @@ MainInfo _$MainInfoFromJson(Map<String, dynamic> json) => MainInfo(
       id: json['id'] as int,
       title: json['title'] as String,
       description: json['description'] as String,
+      created: DateTime.parse(json['created'] as String),
     );
 
 Map<String, dynamic> _$MainInfoToJson(MainInfo instance) => <String, dynamic>{
       'id': instance.id,
       'title': instance.title,
       'description': instance.description,
+      'created': instance.created.toIso8601String(),
     };
 
 PaginatedMainInfo _$PaginatedMainInfoFromJson(Map<String, dynamic> json) =>
@@ -70,12 +72,14 @@ FAQ _$FAQFromJson(Map<String, dynamic> json) => FAQ(
       id: json['id'] as int,
       title: json['title'] as String,
       description: json['description'] as String,
+      created: DateTime.parse(json['created'] as String),
     );
 
 Map<String, dynamic> _$FAQToJson(FAQ instance) => <String, dynamic>{
       'id': instance.id,
       'title': instance.title,
       'description': instance.description,
+      'created': instance.created.toIso8601String(),
     };
 
 PaginatedFAQ _$PaginatedFAQFromJson(Map<String, dynamic> json) => PaginatedFAQ(

@@ -45,11 +45,13 @@ class Inquiry {
 class MainInfo {
   final int id;
   final String title, description;
+  final DateTime created;
 
   MainInfo({
     required this.id,
     required this.title,
     required this.description,
+    required this.created,
   });
 
   factory MainInfo.fromJson(Map<String, dynamic> json) =>
@@ -81,11 +83,13 @@ class PaginatedMainInfo {
 class FAQ {
   final int id;
   final String title, description;
+  final DateTime created;
 
   FAQ({
     required this.id,
     required this.title,
     required this.description,
+    required this.created,
   });
 
   factory FAQ.fromJson(Map<String, dynamic> json) => _$FAQFromJson(json);

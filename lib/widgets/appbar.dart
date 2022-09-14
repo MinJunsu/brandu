@@ -38,6 +38,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           : NotoText(
               title,
               size: 16,
+              isBold: true,
             ),
       actions:
           actions ?? (isSearch ? [searchIcon(), infoIcon()] : [infoIcon()]),

@@ -1,32 +1,23 @@
 import 'package:brandu/models/service.dart';
+import 'package:brandu/services/service.dart';
+import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 
 class MainInfoController extends GetxController {
-  late PaginatedMainInfo _mainInfo;
-  List<MainInfoWithExpanded> _mainIntoWithExpands = [];
+  final Rx<PaginatedMainInfo> _mainInfo =
+      PaginatedMainInfo(count: 0, results: []).obs;
 
-  List<MainInfoWithExpanded> get mainIntoWithExpands => _mainIntoWithExpands;
+  Rx<PaginatedMainInfo> get mainInfo => _mainInfo;
 
   @override
   void onInit() {
     super.onInit();
-    _mainIntoWithExpands = List.generate(
-      _mainInfo.results.length,
-      (index) => MainInfoWithExpanded(
-        _mainInfo.results[index],
-        false,
-      ),
-    );
+    fetchMainInfo();
   }
 
-  void setExpanded(int index, bool isExpanded) {
-    _mainIntoWithExpands[index].expanded = !isExpanded;
+  void fetchMainInfo() async {
+    PaginatedMainInfo paginatedMainInfo =
+        await ServiceClient(Dio()).getMainInfo();
+    _mainInfo(paginatedMainInfo);
   }
-}
-
-class MainInfoWithExpanded {
-  final MainInfo mainInfo;
-  bool expanded;
-
-  MainInfoWithExpanded(this.mainInfo, this.expanded);
 }

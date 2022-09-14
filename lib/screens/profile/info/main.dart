@@ -112,17 +112,13 @@ class ProfileInfoPage extends GetView<ProfileInfoController> {
                 count: 0,
               ),
               CustomIconButton(
-                onPressed: () {
-                  Get.toNamed('/profile/coupon');
-                },
+                onPressed: () => Get.toNamed('/profile/coupon'),
                 icon: 'assets/icons/coupon.svg',
                 title: '쿠폰',
                 count: 0,
               ),
               CustomIconButton(
-                onPressed: () {
-                  Get.toNamed('/profile/point');
-                },
+                onPressed: () => Get.toNamed('/profile/point'),
                 icon: 'assets/icons/point.svg',
                 title: '포인트',
                 count: 0,
@@ -143,23 +139,17 @@ class ProfileInfoPage extends GetView<ProfileInfoController> {
                   title: '개인정보 수정',
                 ),
                 ProfileBox(
-                  onPressed: () {
-                    // Get.to(() => const NoticePage());
-                  },
+                  onPressed: () => Get.toNamed('/profile/notice'),
                   icon: 'assets/icons/announcement.svg',
                   title: '공지사항',
                 ),
                 ProfileBox(
-                  onPressed: () {
-                    // Get.to(() => const ServiceCenterPage());
-                  },
+                  onPressed: () => Get.toNamed('/profile/services'),
                   icon: 'assets/icons/qna.svg',
                   title: '고객센터',
                 ),
                 ProfileBox(
-                  onPressed: () {
-                    // Get.to(() => const ProfileNotifyPage());
-                  },
+                  onPressed: () => Get.toNamed('/profile/notify'),
                   icon: 'assets/icons/alarm.svg',
                   title: '알림설정',
                 ),

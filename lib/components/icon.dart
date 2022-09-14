@@ -1,3 +1,5 @@
+import 'package:brandu/viewmodels/home/main.dart';
+import 'package:brandu/viewmodels/profile/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/svg.dart';
@@ -9,8 +11,8 @@ Widget homeIcon() {
     alignment: Alignment.centerLeft,
     child: IconButton(
       onPressed: () {
+        Get.find<HomeController>().controller.animateTo(0);
         Get.offAllNamed('/home');
-        // Get.offAll(() => const HomePage());
       },
       icon: SvgPicture.asset('assets/icons/home.svg'),
     ),
@@ -50,7 +52,7 @@ Widget infoIcon() {
     alignment: Alignment.centerLeft,
     child: IconButton(
       onPressed: () async {
-        if (await storage.read(key: 'ACCESS_TOKEN') != null) {
+        if (await Get.find<ProfileController>().isAuthenticated()) {
           Get.toNamed('/profile');
         } else {
           Get.toNamed('login');
