@@ -191,3 +191,63 @@ class Basket {
 
   Map<String, dynamic> toJson() => _$BasketToJson(this);
 }
+
+@JsonSerializable()
+class ProfileMySummary {
+  final int wish;
+  final int basket;
+  final int scrap;
+  final int coupon;
+  final int point;
+
+  ProfileMySummary({
+    required this.wish,
+    required this.basket,
+    required this.scrap,
+    required this.coupon,
+    required this.point,
+  });
+
+  factory ProfileMySummary.fromJson(Map<String, dynamic> json) =>
+      _$ProfileMySummaryFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ProfileMySummaryToJson(this);
+}
+
+@JsonSerializable()
+class ProfileOrderSummary {
+  final int all;
+  final int paid;
+  final int delivery;
+  final int complete;
+  final int confirm;
+
+  ProfileOrderSummary({
+    required this.all,
+    required this.paid,
+    required this.delivery,
+    required this.complete,
+    required this.confirm,
+  });
+
+  factory ProfileOrderSummary.fromJson(Map<String, dynamic> json) =>
+      _$ProfileOrderSummaryFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ProfileOrderSummaryToJson(this);
+}
+
+@JsonSerializable()
+class ProfileSummary {
+  final ProfileMySummary my;
+  final ProfileOrderSummary orders;
+
+  ProfileSummary({
+    required this.my,
+    required this.orders,
+  });
+
+  factory ProfileSummary.fromJson(Map<String, dynamic> json) =>
+      _$ProfileSummaryFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ProfileSummaryToJson(this);
+}

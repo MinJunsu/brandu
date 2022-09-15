@@ -1,8 +1,10 @@
 import 'package:brandu/components/color.dart';
 import 'package:brandu/components/text.dart';
+import 'package:brandu/models/account.dart';
 import 'package:brandu/viewmodels/home/main.dart';
 import 'package:brandu/viewmodels/profile/info/main.dart';
 import 'package:brandu/viewmodels/profile/info/my/main.dart';
+import 'package:brandu/viewmodels/profile/main.dart';
 import 'package:brandu/widgets/base/border.dart';
 import 'package:brandu/widgets/base/box-container.dart';
 import 'package:brandu/widgets/base/button.dart';
@@ -16,6 +18,7 @@ class ProfileInfoPage extends GetView<ProfileInfoController> {
 
   @override
   Widget build(BuildContext context) {
+    ProfileMySummary summary = Get.find<ProfileController>().profileSummary.my;
     return Column(
       children: [
         Container(
@@ -91,7 +94,7 @@ class ProfileInfoPage extends GetView<ProfileInfoController> {
                 },
                 icon: 'assets/icons/heart-black.svg',
                 title: '찜한상품',
-                count: 1,
+                count: summary.wish,
               ),
               CustomIconButton(
                 onPressed: () {
@@ -100,7 +103,7 @@ class ProfileInfoPage extends GetView<ProfileInfoController> {
                 },
                 icon: 'assets/icons/bucket-black.svg',
                 title: '장바구니',
-                count: 2,
+                count: summary.basket,
               ),
               CustomIconButton(
                 onPressed: () {
@@ -109,19 +112,19 @@ class ProfileInfoPage extends GetView<ProfileInfoController> {
                 },
                 icon: 'assets/icons/save-black.svg',
                 title: '스크랩북',
-                count: 0,
+                count: summary.basket,
               ),
               CustomIconButton(
                 onPressed: () => Get.toNamed('/profile/coupon'),
                 icon: 'assets/icons/coupon.svg',
                 title: '쿠폰',
-                count: 0,
+                count: summary.coupon,
               ),
               CustomIconButton(
                 onPressed: () => Get.toNamed('/profile/point'),
                 icon: 'assets/icons/point.svg',
                 title: '포인트',
-                count: 0,
+                count: summary.point,
               ),
             ],
           ),

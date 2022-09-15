@@ -26,6 +26,9 @@ abstract class AccountClient {
   @PATCH('/edit/')
   Future<Profile> patchProfile(@Body() Profile profile);
 
+  @GET('/summary/')
+  Future<ProfileSummary> getProfileSummary();
+
   @POST('/basket/{id}/')
   Future<void> postBaskets(@Path("id") int id);
 

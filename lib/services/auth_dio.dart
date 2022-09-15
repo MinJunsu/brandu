@@ -15,6 +15,8 @@ Future<Dio> authDio() async {
       onRequest: (options, handler) async {
         final accessToken = await storage.read(key: 'ACCESS_TOKEN');
 
+        // print(accessToken);
+
         options.headers['Authorization'] = 'Bearer $accessToken';
         return handler.next(options);
       },

@@ -1,6 +1,7 @@
 import 'package:brandu/bindings/home.dart';
 import 'package:brandu/bindings/profile.dart';
 import 'package:brandu/screens/auth/login.dart';
+import 'package:brandu/screens/category/main.dart';
 import 'package:brandu/screens/order/main.dart';
 import 'package:brandu/screens/profile/info/coupon/create.dart';
 import 'package:brandu/screens/profile/info/coupon/main.dart';
@@ -17,6 +18,7 @@ import 'package:brandu/screens/profile/order/adress/main.dart';
 import 'package:brandu/screens/profile/order/adress/modify.dart';
 import 'package:brandu/screens/profile/order/review/create.dart';
 import 'package:brandu/screens/profile/order/review/main.dart';
+import 'package:brandu/screens/profile/order/shipping/main.dart';
 import 'package:brandu/screens/search/main.dart';
 import 'package:brandu/viewmodels/auth/login.dart';
 import 'package:brandu/viewmodels/order/main.dart';
@@ -58,14 +60,21 @@ List<GetPage> appRoutes() {
       }),
     ),
     GetPage(
-        name: '/order',
-        page: () => const OrderPage(),
-        transition: Transition.fade,
-        transitionDuration: const Duration(milliseconds: 500),
-        binding: BindingsBuilder(() {
-          Get.put(OrderController());
-          Get.put(ProfileMyController());
-        })),
+      name: '/order',
+      page: () => const OrderPage(),
+      transition: Transition.fade,
+      transitionDuration: const Duration(milliseconds: 500),
+      binding: BindingsBuilder(() {
+        Get.put(OrderController());
+        Get.put(ProfileMyController());
+      }),
+    ),
+    GetPage(
+      name: '/category',
+      page: () => const CategoryPage(),
+      transition: Transition.fade,
+      transitionDuration: const Duration(milliseconds: 500),
+    ),
     GetPage(
       name: '/profile',
       page: () => const ProfilePage(),
@@ -221,6 +230,12 @@ List<GetPage> appRoutes() {
           Get.put(ReviewCreateController());
         },
       ),
+    ),
+    GetPage(
+      name: '/profile/shipping',
+      page: () => const ShippingPage(),
+      transition: Transition.fade,
+      transitionDuration: const Duration(milliseconds: 500),
     ),
     GetPage(
       name: '/search',

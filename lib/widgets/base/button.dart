@@ -53,8 +53,11 @@ class SmallButtonBox extends StatelessWidget {
   final String title;
   final Function() onPressed;
 
-  const SmallButtonBox({Key? key, required this.title, required this.onPressed})
-      : super(key: key);
+  const SmallButtonBox({
+    Key? key,
+    required this.title,
+    required this.onPressed,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -75,17 +78,47 @@ class SmallButtonBox extends StatelessWidget {
   }
 }
 
+class MainSmallButtonBox extends StatelessWidget {
+  final String title;
+  final Function() onPressed;
+
+  const MainSmallButtonBox({
+    Key? key,
+    required this.title,
+    required this.onPressed,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: mainColor,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: NotoText(title, size: 14),
+      ),
+    );
+  }
+}
+
 class CustomIconButton extends StatelessWidget {
   final Function() onPressed;
   final String icon;
   final String title;
   final int count;
+  final bool active;
+  final Color activeColor;
 
   const CustomIconButton({
     required this.onPressed,
     required this.icon,
     required this.title,
     this.count = 0,
+    this.active = false,
+    this.activeColor = mainColor,
     Key? key,
   }) : super(key: key);
 
@@ -99,22 +132,23 @@ class CustomIconButton extends StatelessWidget {
             icon,
             fit: BoxFit.fitHeight,
             height: 18,
+            color: active ? activeColor : Colors.black,
           ),
           const SizedBox(
             height: 3,
           ),
           NotoText(
             title,
-            size: 12,
-            color: greyColor,
+            size: 14,
+            color: active ? activeColor : greyColor,
           ),
           const SizedBox(
             height: 5,
           ),
           NotoText(
             count.toString(),
-            size: 12,
-            color: Colors.black,
+            size: 16,
+            color: active ? activeColor : Colors.black,
             isBold: true,
           ),
         ],
@@ -247,8 +281,11 @@ class MainButtonBox extends StatelessWidget {
   final String title;
   final dynamic onPressed;
 
-  const MainButtonBox({required this.title, required this.onPressed, Key? key})
-      : super(key: key);
+  const MainButtonBox({
+    required this.title,
+    required this.onPressed,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -264,6 +301,41 @@ class MainButtonBox extends StatelessWidget {
           width: double.infinity,
           child: NotoText(title, size: 14, isBold: true),
         ),
+      ),
+    );
+  }
+}
+
+class CustomDropDownButton extends StatelessWidget {
+  final List<String> items;
+  final Function(String?) onChanged;
+  final String value;
+
+  const CustomDropDownButton({
+    required this.items,
+    required this.onChanged,
+    required this.value,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButtonHideUnderline(
+      child: DropdownButton(
+        items: items
+            .map(
+              (item) => DropdownMenuItem<String>(
+                value: item,
+                child: NotoText(
+                  item,
+                  size: 14,
+                  color: lightGreyColor,
+                ),
+              ),
+            )
+            .toList(),
+        value: value,
+        onChanged: onChanged,
       ),
     );
   }

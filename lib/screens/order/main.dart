@@ -49,7 +49,7 @@ class OrderPage extends GetView<OrderController> {
                         children: [
                           const NotoText('주문내역', size: 16, color: Colors.black),
                           Container(
-                            child: controller.visibility.value
+                            child: controller.visibility
                                 ? SvgPicture.asset('assets/icons/up-arrow.svg')
                                 : SvgPicture.asset(
                                     'assets/icons/down-arrow.svg'),
@@ -59,7 +59,7 @@ class OrderPage extends GetView<OrderController> {
                     ),
                     Visibility(
                       maintainSize: false,
-                      visible: controller.visibility.value,
+                      visible: controller.visibility,
                       child: Container(
                         margin: const EdgeInsets.only(
                           top: 15,
@@ -125,8 +125,11 @@ class OrderPage extends GetView<OrderController> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const NotoText('주문자',
-                                  size: 16, color: Colors.black),
+                              const NotoText(
+                                '주문자',
+                                size: 16,
+                                color: Colors.black,
+                              ),
                               SizedBox(
                                 width: 70,
                                 height: 30,
@@ -196,11 +199,13 @@ class OrderPage extends GetView<OrderController> {
                         ],
                       ),
                     ),
-                    BadgeAddressBox(
-                      index: controller.addressIndex,
-                      addresses: controller.addresses,
-                      onPressed: controller.setAddressIndex,
-                    ),
+                    controller.addresses.isNotEmpty
+                        ? BadgeAddressBox(
+                            selectedIndex: controller.addressIndex,
+                            addresses: controller.addresses,
+                            onPressed: controller.setAddressIndex,
+                          )
+                        : Container(),
                   ],
                 ),
               ),
@@ -291,30 +296,20 @@ class OrderPage extends GetView<OrderController> {
   }
 }
 
-class BadgeAddressBox extends StatefulWidget {
+class BadgeAddressBox extends StatelessWidget {
   final List<Address> addresses;
-  final int index;
-  final dynamic onPressed;
+  final int selectedIndex;
+  final Function(int) onPressed;
 
   const BadgeAddressBox({
     Key? key,
     required this.addresses,
-    required this.index,
+    required this.selectedIndex,
     required this.onPressed,
   }) : super(key: key);
 
   @override
-  State<BadgeAddressBox> createState() => _BadgeAddressBoxState();
-}
-
-class _BadgeAddressBoxState extends State<BadgeAddressBox> {
-  @override
   Widget build(BuildContext context) {
-    if (widget.addresses.isEmpty) {
-      return const SizedBox(
-        height: 150,
-      );
-    }
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: 25,
@@ -340,41 +335,39 @@ class _BadgeAddressBoxState extends State<BadgeAddressBox> {
               ),
               Expanded(
                 child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
+                  scrollDirection: Axis.vertical,
+                  // child: Container(),
                   child: Wrap(
                     spacing: 5,
-                    direction: Axis.horizontal,
-                    children: <Widget>[
-                      ...widget.addresses
-                          .mapIndexed(
-                            (idx, address) => GestureDetector(
-                              onTap: () => widget.onPressed(idx),
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 2,
-                                  horizontal: 5,
-                                ),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: idx == widget.index
-                                        ? mainColor
-                                        : Colors.transparent,
-                                    border: Border.all(
-                                      color: mainColor,
-                                      width: 1,
-                                    )),
-                                child: NotoText(
-                                  address.name,
-                                  size: 12,
-                                  color: idx == widget.index
-                                      ? Colors.white
-                                      : mainColor,
-                                ),
+                    children: addresses
+                        .mapIndexed(
+                          (index, element) => GestureDetector(
+                            onTap: () => onPressed(index),
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 2,
+                                horizontal: 5,
+                              ),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: index == selectedIndex
+                                      ? mainColor
+                                      : Colors.transparent,
+                                  border: Border.all(
+                                    color: mainColor,
+                                    width: 1,
+                                  )),
+                              child: NotoText(
+                                addresses[index].name,
+                                size: 12,
+                                color: index == selectedIndex
+                                    ? Colors.white
+                                    : mainColor,
                               ),
                             ),
-                          )
-                          .toList(),
-                    ],
+                          ),
+                        )
+                        .toList(),
                   ),
                 ),
               ),
@@ -388,34 +381,43 @@ class _BadgeAddressBoxState extends State<BadgeAddressBox> {
           ),
           Row(
             children: [
-              const NotoText('수령인', size: 14, color: greyColor),
+              const SizedBox(
+                width: 60,
+                child: NotoText('수령인', size: 14, color: greyColor),
+              ),
               const SizedBox(width: 20),
               NotoText(
-                widget.addresses[widget.index].recipient,
-                size: 12,
+                addresses[selectedIndex].recipient,
+                size: 14,
                 color: Colors.black,
               ),
             ],
           ),
           Row(
             children: [
-              const NotoText('연락처', size: 12, color: greyColor),
+              const SizedBox(
+                width: 60,
+                child: NotoText('연락처', size: 14, color: greyColor),
+              ),
               const SizedBox(width: 20),
               NotoText(
-                widget.addresses[widget.index].phone_number,
-                size: 12,
+                addresses[selectedIndex].phone_number,
+                size: 14,
                 color: Colors.black,
               ),
             ],
           ),
           Row(
             children: [
-              const NotoText('주소', size: 12, color: greyColor),
-              const SizedBox(width: 33),
+              const SizedBox(
+                width: 60,
+                child: NotoText('주소', size: 14, color: greyColor),
+              ),
+              const SizedBox(width: 20),
               Flexible(
                 child: NotoText(
-                  widget.addresses[widget.index].address,
-                  size: 12,
+                  addresses[selectedIndex].address,
+                  size: 14,
                   color: Colors.black,
                 ),
               ),

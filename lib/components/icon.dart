@@ -69,7 +69,7 @@ Widget menuIcon() {
     alignment: Alignment.centerLeft,
     child: IconButton(
       onPressed: () {
-        // Get.to(() => CategoryPage());
+        Get.toNamed('/category');
       },
       icon: SvgPicture.asset('assets/icons/menu.svg'),
     ),

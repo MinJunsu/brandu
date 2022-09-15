@@ -1,3 +1,5 @@
+import 'package:brandu/models/account.dart';
+import 'package:brandu/viewmodels/profile/main.dart';
 import 'package:brandu/viewmodels/profile/order/main.dart';
 import 'package:brandu/widgets/base/border.dart';
 import 'package:brandu/widgets/base/box-container.dart';
@@ -10,6 +12,8 @@ class ProfileOrderPage extends GetView<ProfileOrderController> {
 
   @override
   Widget build(BuildContext context) {
+    ProfileOrderSummary summary =
+        Get.find<ProfileController>().profileSummary.orders;
     return Column(
       children: [
         Container(
@@ -23,34 +27,39 @@ class ProfileOrderPage extends GetView<ProfileOrderController> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CustomIconButton(
-                  onPressed: () {},
+                  onPressed: () =>
+                      Get.toNamed('/profile/shipping', arguments: 0),
                   icon: 'assets/icons/bill.svg',
                   title: '전체',
-                  count: 1,
+                  count: summary.all,
                 ),
                 CustomIconButton(
-                  onPressed: () {},
+                  onPressed: () =>
+                      Get.toNamed('/profile/shipping', arguments: 1),
                   icon: 'assets/icons/complete-payment.svg',
                   title: '결제완료',
-                  count: 1,
+                  count: summary.paid,
                 ),
                 CustomIconButton(
-                  onPressed: () {},
+                  onPressed: () =>
+                      Get.toNamed('/profile/shipping', arguments: 2),
                   icon: 'assets/icons/shipping.svg',
                   title: '배송 중',
-                  count: 0,
+                  count: summary.delivery,
                 ),
                 CustomIconButton(
-                  onPressed: () {},
+                  onPressed: () =>
+                      Get.toNamed('/profile/shipping', arguments: 3),
                   icon: 'assets/icons/shipping-complete.svg',
                   title: '배송 완료',
-                  count: 0,
+                  count: summary.complete,
                 ),
                 CustomIconButton(
-                  onPressed: () {},
+                  onPressed: () =>
+                      Get.toNamed('/profile/shipping', arguments: 4),
                   icon: 'assets/icons/confirm.svg',
                   title: '구매확정',
-                  count: 0,
+                  count: summary.confirm,
                 ),
               ],
             ),

@@ -150,3 +150,53 @@ Map<String, dynamic> _$BasketToJson(Basket instance) => <String, dynamic>{
       'product': instance.product,
       'amount': instance.amount,
     };
+
+ProfileMySummary _$ProfileMySummaryFromJson(Map<String, dynamic> json) =>
+    ProfileMySummary(
+      wish: json['wish'] as int,
+      basket: json['basket'] as int,
+      scrap: json['scrap'] as int,
+      coupon: json['coupon'] as int,
+      point: json['point'] as int,
+    );
+
+Map<String, dynamic> _$ProfileMySummaryToJson(ProfileMySummary instance) =>
+    <String, dynamic>{
+      'wish': instance.wish,
+      'basket': instance.basket,
+      'scrap': instance.scrap,
+      'coupon': instance.coupon,
+      'point': instance.point,
+    };
+
+ProfileOrderSummary _$ProfileOrderSummaryFromJson(Map<String, dynamic> json) =>
+    ProfileOrderSummary(
+      all: json['all'] as int,
+      paid: json['paid'] as int,
+      delivery: json['delivery'] as int,
+      complete: json['complete'] as int,
+      confirm: json['confirm'] as int,
+    );
+
+Map<String, dynamic> _$ProfileOrderSummaryToJson(
+        ProfileOrderSummary instance) =>
+    <String, dynamic>{
+      'all': instance.all,
+      'paid': instance.paid,
+      'delivery': instance.delivery,
+      'complete': instance.complete,
+      'confirm': instance.confirm,
+    };
+
+ProfileSummary _$ProfileSummaryFromJson(Map<String, dynamic> json) =>
+    ProfileSummary(
+      my: ProfileMySummary.fromJson(json['my'] as Map<String, dynamic>),
+      orders:
+          ProfileOrderSummary.fromJson(json['orders'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$ProfileSummaryToJson(ProfileSummary instance) =>
+    <String, dynamic>{
+      'my': instance.my,
+      'orders': instance.orders,
+    };
