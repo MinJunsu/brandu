@@ -3,6 +3,8 @@ import 'package:brandu/bindings/profile.dart';
 import 'package:brandu/screens/auth/login.dart';
 import 'package:brandu/screens/category/main.dart';
 import 'package:brandu/screens/order/main.dart';
+import 'package:brandu/screens/order/payment/loading.dart';
+import 'package:brandu/screens/order/payment/main.dart';
 import 'package:brandu/screens/profile/info/coupon/create.dart';
 import 'package:brandu/screens/profile/info/coupon/main.dart';
 import 'package:brandu/screens/profile/info/my/main.dart';
@@ -22,6 +24,7 @@ import 'package:brandu/screens/profile/order/shipping/main.dart';
 import 'package:brandu/screens/search/main.dart';
 import 'package:brandu/viewmodels/auth/login.dart';
 import 'package:brandu/viewmodels/order/main.dart';
+import 'package:brandu/viewmodels/order/payment/main.dart';
 import 'package:brandu/viewmodels/profile/info/coupon/create.dart';
 import 'package:brandu/viewmodels/profile/info/coupon/main.dart';
 import 'package:brandu/viewmodels/profile/info/my/main.dart';
@@ -68,6 +71,23 @@ List<GetPage> appRoutes() {
         Get.put(OrderController());
         Get.put(ProfileMyController());
       }),
+    ),
+    GetPage(
+      name: '/order/payment',
+      page: () => const PaymentPage(),
+      transition: Transition.fade,
+      transitionDuration: const Duration(milliseconds: 500),
+      binding: BindingsBuilder(
+        () {
+          Get.put(PaymentController());
+        },
+      ),
+    ),
+    GetPage(
+      name: '/order/payment/loading',
+      page: () => const PaymentLoadingPage(),
+      transition: Transition.fade,
+      transitionDuration: const Duration(milliseconds: 500),
     ),
     GetPage(
       name: '/category',

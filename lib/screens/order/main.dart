@@ -270,7 +270,7 @@ class OrderPage extends GetView<OrderController> {
                         height: 20,
                       ),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () => Get.toNamed('/order/payment'),
                         child: BoxContainer(
                           height: 45,
                           color: mainColor,
@@ -336,7 +336,6 @@ class BadgeAddressBox extends StatelessWidget {
               Expanded(
                 child: SingleChildScrollView(
                   scrollDirection: Axis.vertical,
-                  // child: Container(),
                   child: Wrap(
                     spacing: 5,
                     children: addresses
