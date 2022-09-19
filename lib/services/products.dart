@@ -13,4 +13,7 @@ abstract class ProductClient {
 
   @GET('/categories/')
   Future<List<MainCategory>> getMainCategories();
+
+  @GET('/category/{id}/')
+  Future<List<SimpleProduct>> getSubCategoryProducts(@Path("id") int id);
 }

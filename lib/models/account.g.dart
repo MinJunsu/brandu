@@ -143,12 +143,14 @@ Basket _$BasketFromJson(Map<String, dynamic> json) => Basket(
       id: json['id'] as int,
       product: SimpleProduct.fromJson(json['product'] as Map<String, dynamic>),
       amount: json['amount'] as int,
+      is_purchase: json['is_purchase'] as bool,
     );
 
 Map<String, dynamic> _$BasketToJson(Basket instance) => <String, dynamic>{
       'id': instance.id,
       'product': instance.product,
       'amount': instance.amount,
+      'is_purchase': instance.is_purchase,
     };
 
 ProfileMySummary _$ProfileMySummaryFromJson(Map<String, dynamic> json) =>

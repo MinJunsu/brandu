@@ -1,6 +1,7 @@
 import 'package:brandu/bindings/home.dart';
 import 'package:brandu/bindings/profile.dart';
 import 'package:brandu/screens/auth/login.dart';
+import 'package:brandu/screens/category/list.dart';
 import 'package:brandu/screens/category/main.dart';
 import 'package:brandu/screens/order/main.dart';
 import 'package:brandu/screens/order/payment/loading.dart';
@@ -23,6 +24,7 @@ import 'package:brandu/screens/profile/order/review/main.dart';
 import 'package:brandu/screens/profile/order/shipping/main.dart';
 import 'package:brandu/screens/search/main.dart';
 import 'package:brandu/viewmodels/auth/login.dart';
+import 'package:brandu/viewmodels/category/list.dart';
 import 'package:brandu/viewmodels/order/main.dart';
 import 'package:brandu/viewmodels/order/payment/main.dart';
 import 'package:brandu/viewmodels/profile/info/coupon/create.dart';
@@ -94,6 +96,17 @@ List<GetPage> appRoutes() {
       page: () => const CategoryPage(),
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 500),
+    ),
+    GetPage(
+      name: '/category/list',
+      page: () => const CategoryListPage(),
+      transition: Transition.fade,
+      transitionDuration: const Duration(milliseconds: 500),
+      binding: BindingsBuilder(
+        () {
+          Get.lazyPut(() => CategoryListController());
+        },
+      ),
     ),
     GetPage(
       name: '/profile',

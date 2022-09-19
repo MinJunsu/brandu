@@ -180,11 +180,13 @@ class Basket {
   final int id;
   final SimpleProduct product;
   final int amount;
+  final bool is_purchase;
 
   Basket({
     required this.id,
     required this.product,
     required this.amount,
+    required this.is_purchase,
   });
 
   factory Basket.fromJson(Map<String, dynamic> json) => _$BasketFromJson(json);

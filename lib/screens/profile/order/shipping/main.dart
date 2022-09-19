@@ -1,5 +1,6 @@
 import 'package:brandu/components/color.dart';
 import 'package:brandu/components/text.dart';
+import 'package:brandu/models/order.dart';
 import 'package:brandu/utils/format.dart';
 import 'package:brandu/viewmodels/profile/order/shipping/main.dart';
 import 'package:brandu/widgets/appbar.dart';
@@ -68,11 +69,21 @@ class ShippingPage extends GetView<ShippingController> {
                 child: TabBarView(
                   controller: controller.tabController,
                   children: [
-                    ShippingContainer(),
-                    ShippingContainer(),
-                    ShippingContainer(),
-                    ShippingContainer(),
-                    ShippingContainer(),
+                    ShippingContainer(
+                      orders: controller.orders,
+                    ),
+                    ShippingContainer(
+                      orders: controller.paidOrder,
+                    ),
+                    ShippingContainer(
+                      orders: controller.deliveryOrder,
+                    ),
+                    ShippingContainer(
+                      orders: controller.completeOrder,
+                    ),
+                    ShippingContainer(
+                      orders: controller.confirmOrder,
+                    ),
                   ],
                 ),
               )
@@ -85,10 +96,10 @@ class ShippingPage extends GetView<ShippingController> {
 }
 
 class ShippingContainer extends StatelessWidget {
-  // final List<Order> orders;
+  final List<Order> orders;
 
   const ShippingContainer({
-    // required this.orders,
+    required this.orders,
     Key? key,
   }) : super(key: key);
 
@@ -111,11 +122,6 @@ class ShippingContainer extends StatelessWidget {
                   size: 12,
                   color: greyColor,
                 ),
-                // CustomDropDownButton(
-                //   items: const ['1', '2', '3'],
-                //   onChanged: (value) {},
-                //   value: '1',
-                // ),
               ],
             ),
           ),
@@ -127,9 +133,11 @@ class ShippingContainer extends StatelessWidget {
               child: ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: 10,
+                itemCount: orders.length,
                 itemBuilder: (context, index) {
-                  return ShippingBox();
+                  print(orders.length);
+                  print(index);
+                  return ShippingBox(order: orders[index]);
                 },
               ),
             ),
@@ -141,7 +149,12 @@ class ShippingContainer extends StatelessWidget {
 }
 
 class ShippingBox extends StatelessWidget {
-  const ShippingBox({Key? key}) : super(key: key);
+  final Order order;
+
+  const ShippingBox({
+    required this.order,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -161,7 +174,7 @@ class ShippingBox extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   NotoText(
-                    '${baseDateFormat.format(DateTime(2020))} 주문',
+                    '${baseDateFormat.format(order.created)} 주문',
                     size: 14,
                     color: greyColor,
                   ),
@@ -172,13 +185,14 @@ class ShippingBox extends StatelessWidget {
                     width: 100,
                     height: 100,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.black12,
-                      // image: DecorationImage(
-                      //   fit: BoxFit.cover,
-                      //   image: NetworkImage(category.backdrop_image!),
-                      // ),
-                    ),
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.black12
+                        // image: DecorationImage(
+                        //   fit: BoxFit.cover,
+                        //   image: NetworkImage(
+                        //       order.products[0].product.backdrop_image!),
+                        // ),
+                        ),
                   ),
                 ],
               ),
@@ -189,7 +203,7 @@ class ShippingBox extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   NotoText(
-                    '결제 완료',
+                    order.status.toString(),
                     size: 14,
                     color: Colors.black,
                     isBold: true,
@@ -198,7 +212,7 @@ class ShippingBox extends StatelessWidget {
                     height: 10,
                   ),
                   NotoText(
-                    '천연생분해 칫솔',
+                    order.name,
                     size: 14,
                     color: greyColor,
                   ),
@@ -208,12 +222,12 @@ class ShippingBox extends StatelessWidget {
                   Row(
                     children: [
                       NotoText(
-                        currencyFormat.format(1000),
+                        currencyFormat.format(order.price),
                         size: 14,
                         color: Colors.black,
                         isBold: true,
                       ),
-                      NotoText(
+                      const NotoText(
                         ' 원',
                         size: 14,
                         color: greyColor,
@@ -223,7 +237,7 @@ class ShippingBox extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  NotoText(
+                  const NotoText(
                     'Mint / M / 1개',
                     size: 14,
                     color: greyColor,

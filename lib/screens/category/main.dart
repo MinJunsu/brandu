@@ -65,28 +65,35 @@ class CategoryPage extends GetView<CategoryController> {
                 itemBuilder: (BuildContext context, int index) {
                   SubCategory category = controller
                       .mainCategories[controller.index].sub_categories[index];
-                  return Container(
-                    padding: const EdgeInsets.all(10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: 100,
-                          height: 100,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.black12
-                              // image: DecorationImage(
-                              //   fit: BoxFit.cover,
-                              //   image: NetworkImage(category.backdrop_image!),
-                              // ),
-                              ),
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        NotoText(category.name, size: 14, color: greyColor),
-                      ],
+                  return GestureDetector(
+                    onTap: () => Get.toNamed('category/list', arguments: [
+                      '${controller.mainCategories[controller.index].name}(${category.name})',
+                      controller.mainCategories[controller.index]
+                          .sub_categories[index].id,
+                    ]),
+                    child: Container(
+                      padding: const EdgeInsets.all(10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: 100,
+                            height: 100,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.black12
+                                // image: DecorationImage(
+                                //   fit: BoxFit.cover,
+                                //   image: NetworkImage(category.backdrop_image!),
+                                // ),
+                                ),
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          NotoText(category.name, size: 14, color: greyColor),
+                        ],
+                      ),
                     ),
                   );
                 },

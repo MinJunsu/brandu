@@ -1,4 +1,5 @@
 import 'package:brandu/models/account.dart';
+import 'package:brandu/models/order.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
 
@@ -70,4 +71,7 @@ abstract class AccountClient {
 
   @PATCH('/address/{id}/main/')
   Future<void> patchAddressMain(@Path('id') int id);
+
+  @GET('/orders/')
+  Future<List<Order>> getOrders();
 }
