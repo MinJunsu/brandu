@@ -25,16 +25,16 @@ class LoginPage extends GetView<LoginController> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: const [
-                  NotoText('나를 위한 친환경 브랜딩', size: 18),
-                  NotoText('나와 지구를 위한 가치소비 플랫폼', size: 18)
+                  NotoText('나를 위한 친환경 브랜딩', size: 16),
+                  NotoText('나와 지구를 위한 가치소비 플랫폼', size: 16)
                 ],
               ),
-              const SizedBox(height: 130),
+              const SizedBox(height: 120),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: const [
-                  NotoText('당신을 위한 친환경', size: 20),
-                  NotoText('브랜드, 브랜뉴', size: 20),
+                  NotoText('당신을 위한 친환경', size: 24, isBold: true),
+                  NotoText('브랜딩, 브랜뉴', size: 24, isBold: true),
                 ],
               ),
               const SizedBox(height: 100),

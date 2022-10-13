@@ -4,7 +4,6 @@ import 'package:brandu/screens/profile/order/main.dart';
 import 'package:brandu/services/accounts.dart';
 import 'package:brandu/services/auth_dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 
 class ProfileController extends GetxController
@@ -30,14 +29,11 @@ class ProfileController extends GetxController
   late List<Widget> tabHeaders;
   late List<Widget> tabs;
 
-  final FlutterSecureStorage storage = const FlutterSecureStorage();
-
   ProfileSummary get profileSummary => _profileSummary.value;
 
   @override
   void onInit() {
     super.onInit();
-    fetchProfileSummary();
     controller = TabController(length: 2, vsync: this);
     tabHeaders = [
       sizedTab("마이페이지"),
@@ -47,11 +43,6 @@ class ProfileController extends GetxController
       ProfileInfoPage(),
       ProfileOrderPage(),
     ];
-  }
-
-  Future<bool> isAuthenticated() async {
-    String? accessToken = await storage.read(key: 'ACCESS_TOKEN');
-    return accessToken != null;
   }
 
   void fetchProfileSummary() async {

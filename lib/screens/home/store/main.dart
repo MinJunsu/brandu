@@ -23,59 +23,52 @@ class StorePage extends GetView<StoreController> {
             child: Obx(
               () => Column(
                 children: [
-                  Container(
-                    padding: const EdgeInsets.all(10),
-                    child: CarouselSlider(
-                      options: CarouselOptions(
-                        height: 220,
-                        autoPlay: true,
-                        viewportFraction: 1,
-                      ),
-                      items: controller.carousels.mapIndexed(
-                        (index, carousel) {
-                          return Builder(
-                            builder: (BuildContext context) {
-                              return Container(
-                                width: double.infinity,
-                                margin:
-                                    const EdgeInsets.symmetric(horizontal: 5),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    image: DecorationImage(
-                                      fit: BoxFit.fill,
-                                      image: NetworkImage(
-                                        carousel.backdrop_image,
-                                      ), // 배경 이미지
-                                    ),
+                  CarouselSlider(
+                    options: CarouselOptions(
+                      height: 220,
+                      autoPlay: true,
+                      viewportFraction: 1,
+                    ),
+                    items: controller.carousels.mapIndexed(
+                      (index, carousel) {
+                        return Builder(
+                          builder: (BuildContext context) {
+                            return Container(
+                              width: double.infinity,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    fit: BoxFit.fill,
+                                    image: NetworkImage(
+                                      carousel.backdrop_image,
+                                    ), // 배경 이미지
                                   ),
-                                  child: Scaffold(
-                                    backgroundColor: Colors.transparent,
-                                    body: Container(
-                                      alignment: Alignment.bottomRight,
-                                      child: Container(
-                                        alignment: Alignment.center,
-                                        margin: const EdgeInsets.all(10),
-                                        width: 45,
-                                        height: 25,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(50),
-                                          color: const Color.fromRGBO(
-                                              0, 0, 0, 0.3),
-                                        ),
-                                        child: NotoText('${index + 1}/10',
-                                            size: 12),
+                                ),
+                                child: Scaffold(
+                                  backgroundColor: Colors.transparent,
+                                  body: Container(
+                                    alignment: Alignment.bottomRight,
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      margin: const EdgeInsets.all(10),
+                                      width: 45,
+                                      height: 25,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(50),
+                                        color:
+                                            const Color.fromRGBO(0, 0, 0, 0.3),
                                       ),
+                                      child:
+                                          NotoText('${index + 1}/10', size: 12),
                                     ),
                                   ),
                                 ),
-                              );
-                            },
-                          );
-                        },
-                      ).toList(),
-                    ),
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    ).toList(),
                   ),
                   const SizedBox(
                     height: 10,

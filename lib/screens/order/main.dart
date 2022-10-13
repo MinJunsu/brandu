@@ -2,7 +2,7 @@ import 'package:brandu/components/color.dart';
 import 'package:brandu/components/text.dart';
 import 'package:brandu/models/account.dart';
 import 'package:brandu/utils/format.dart';
-import 'package:brandu/viewmodels/home/basket/main.dart';
+import 'package:brandu/viewmodels/basket/main.dart';
 import 'package:brandu/viewmodels/order/main.dart';
 import 'package:brandu/viewmodels/profile/info/my/main.dart';
 import 'package:brandu/widgets/appbar.dart';
@@ -22,6 +22,7 @@ class OrderPage extends GetView<OrderController> {
       appBar: CustomAppBar(
         appBar: AppBar(),
         isBack: true,
+        actions: const <Widget>[],
         title: '주문 및 결제',
       ),
       body: Obx(

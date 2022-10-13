@@ -135,8 +135,6 @@ class ShippingContainer extends StatelessWidget {
                 shrinkWrap: true,
                 itemCount: orders.length,
                 itemBuilder: (context, index) {
-                  print(orders.length);
-                  print(index);
                   return ShippingBox(order: orders[index]);
                 },
               ),

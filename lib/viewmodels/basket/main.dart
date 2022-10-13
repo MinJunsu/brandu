@@ -16,6 +16,8 @@ class BasketController extends GetxController {
 
   RxList<int> get counts => _counts;
 
+  int get selectedCount => _checkedList.where((element) => element).length;
+
   int get orderPrice => _baskets
       .whereIndexed((index, element) => checkedList[index])
       .mapIndexed((index, element) => element.product.price * _counts[index])

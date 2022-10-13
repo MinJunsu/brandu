@@ -19,7 +19,7 @@ class ButtonSnackBarContent extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        NotoText(title, size: 14, color: Colors.black),
+        Expanded(child: NotoText(title, size: 14, color: Colors.black)),
         GestureDetector(
           onTap: onPressed,
           child: Container(
@@ -85,7 +85,10 @@ class SnackBarContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return NotoText(title, size: 14, color: Colors.black);
+    return SizedBox(
+      width: MediaQuery.of(context).size.width - 150,
+      child: NotoText(title, size: 14, color: Colors.black),
+    );
   }
 }
 

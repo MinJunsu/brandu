@@ -1,6 +1,7 @@
 import 'package:brandu/models/token.dart';
 import 'package:brandu/services/auth.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 Future<Dio> authDio() async {
@@ -15,7 +16,7 @@ Future<Dio> authDio() async {
       onRequest: (options, handler) async {
         final accessToken = await storage.read(key: 'ACCESS_TOKEN');
 
-        print(accessToken);
+        debugPrint(accessToken);
 
         options.headers['Authorization'] = 'Bearer $accessToken';
         return handler.next(options);

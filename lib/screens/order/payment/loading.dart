@@ -19,8 +19,8 @@ class PaymentLoadingPage extends StatelessWidget {
       ),
       initialChild: Container(
         child: Column(
-          children: [
-            const NotoText(
+          children: const [
+            NotoText(
               '결제화면으로 이동중입니다.',
               size: 16,
               color: Colors.black,
@@ -28,11 +28,11 @@ class PaymentLoadingPage extends StatelessWidget {
           ],
         ),
       ),
-      userCode: 'tosstest',
+      userCode: 'nictest00m',
       data: PaymentData(
-          pg: 'html5_inicis',
+          pg: 'tosspay',
           // PG사
-          payMethod: 'toss',
+          payMethod: 'card',
           // 결제수단
           name: '아임포트 결제데이터 분석',
           // 주문명

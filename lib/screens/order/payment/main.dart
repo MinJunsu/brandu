@@ -2,7 +2,7 @@ import 'package:brandu/components/color.dart';
 import 'package:brandu/components/text.dart';
 import 'package:brandu/models/event.dart';
 import 'package:brandu/utils/format.dart';
-import 'package:brandu/viewmodels/home/basket/main.dart';
+import 'package:brandu/viewmodels/basket/main.dart';
 import 'package:brandu/viewmodels/order/payment/main.dart';
 import 'package:brandu/viewmodels/profile/info/coupon/main.dart';
 import 'package:brandu/viewmodels/profile/main.dart';

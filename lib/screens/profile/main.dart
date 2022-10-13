@@ -1,7 +1,6 @@
 import 'package:brandu/components/color.dart';
-import 'package:brandu/components/icon.dart';
+import 'package:brandu/components/text.dart';
 import 'package:brandu/viewmodels/profile/main.dart';
-import 'package:brandu/widgets/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -10,11 +9,9 @@ class ProfilePage extends GetView<ProfileController> {
 
   @override
   Widget build(BuildContext context) {
+    /// prefetch profile summary
+    controller.fetchProfileSummary();
     return Scaffold(
-      appBar: CustomAppBar(
-        appBar: AppBar(),
-        leading: homeIcon(),
-      ),
       body: DefaultTabController(
         length: controller.tabHeaders.length,
         child: Column(
@@ -22,13 +19,13 @@ class ProfilePage extends GetView<ProfileController> {
             Container(
               alignment: Alignment.center,
               width: double.infinity,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: Colors.white,
                 boxShadow: [
                   BoxShadow(
-                    color: lightGreyColor,
+                    color: Colors.white.withOpacity(0.1),
                     blurRadius: 15.0,
-                    offset: Offset(0.0, 0.75),
+                    offset: const Offset(0.0, 0.75),
                   ),
                 ],
               ),
@@ -36,32 +33,18 @@ class ProfilePage extends GetView<ProfileController> {
                 margin: const EdgeInsets.symmetric(
                   horizontal: 20,
                 ),
-                child: TabBar(
-                  controller: controller.controller,
-                  indicatorSize: TabBarIndicatorSize.tab,
-                  indicatorColor: mainColor,
-                  labelColor: mainColor,
-                  unselectedLabelColor: greyColor,
-                  isScrollable: true,
-                  labelStyle: const TextStyle(
-                    fontFamily: 'Noto Sans KR',
-                    fontSize: 14,
-                    height: 1.4,
-                    letterSpacing: -0.5,
-                    wordSpacing: -0.5,
-                    fontWeight: FontWeight.w700,
-                    decoration: TextDecoration.none,
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: TabBar(
+                    controller: controller.controller,
+                    indicatorSize: TabBarIndicatorSize.label,
+                    indicatorColor: mainColor,
+                    labelColor: mainColor,
+                    unselectedLabelColor: greyColor,
+                    labelStyle: labelStyle,
+                    unselectedLabelStyle: unselectedLabelStyle,
+                    tabs: controller.tabHeaders,
                   ),
-                  unselectedLabelStyle: const TextStyle(
-                    fontFamily: 'Noto Sans KR',
-                    fontSize: 14,
-                    height: 1.4,
-                    letterSpacing: -0.5,
-                    wordSpacing: -0.5,
-                    fontWeight: FontWeight.w400,
-                    decoration: TextDecoration.none,
-                  ),
-                  tabs: controller.tabHeaders,
                 ),
               ),
             ),

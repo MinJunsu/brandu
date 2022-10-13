@@ -48,6 +48,7 @@ dependencies:
   kpostal:
   iamport_flutter:
   flutter_native_splash:
+  image_picker: ^0.8.6
 
 dev_dependencies:
   flutter_test:

@@ -1,8 +1,7 @@
 import 'package:brandu/components/color.dart';
 import 'package:brandu/components/text.dart';
 import 'package:brandu/models/product.dart';
-import 'package:brandu/viewmodels/home/main.dart';
-import 'package:brandu/viewmodels/home/store/main.dart';
+import 'package:brandu/viewmodels/main.dart';
 import 'package:brandu/widgets/base/snack-bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -18,30 +17,28 @@ class ProductListBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: GridView.builder(
-        shrinkWrap: true,
-        itemCount: products.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: 1 / 1.5,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 20,
-        ),
-        itemBuilder: (BuildContext context, int index) {
-          SimpleProduct product = products[index];
-          return GestureDetector(
-            onTap: () {},
-            child: MainBox(
-              id: product.id,
-              title: product.name,
-              backdropImage: product.backdrop_image,
-              price: product.price,
-              isWished: product.is_wish,
-            ),
-          );
-        },
+    return GridView.builder(
+      shrinkWrap: true,
+      itemCount: products.length,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        childAspectRatio: 1 / 1.5,
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 20,
       ),
+      itemBuilder: (BuildContext context, int index) {
+        SimpleProduct product = products[index];
+        return GestureDetector(
+          onTap: () {},
+          child: MainBox(
+            id: product.id,
+            title: product.name,
+            backdropImage: product.backdrop_image!,
+            price: product.price,
+            isWished: product.is_wish,
+          ),
+        );
+      },
     );
   }
 }
@@ -64,6 +61,8 @@ class MainBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint(isWished.toString());
+    bool wished = Get.find<BaseController>().getIsWished(id, isWished);
     return Container(
       alignment: Alignment.center,
       child: Column(
@@ -85,19 +84,17 @@ class MainBox extends StatelessWidget {
               margin: const EdgeInsets.all(10),
               child: GestureDetector(
                 onTap: () {
-                  if (isWished) {
+                  Get.find<BaseController>().addIsWished(id);
+                  if (wished) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       CustomSnackBar(title: '이미 장바구니에 담겨있는 상품입니다.'),
                     );
                   } else {
-                    Get.find<StoreController>().addToWishList(id);
                     ScaffoldMessenger.of(context).showSnackBar(
                       CustomButtonSnackBar(
-                        title: '${title}이 위시리스트에 담겼습니다.',
+                        title: '$title이 위시리스트에 담겼습니다.',
                         buttonTitle: '이동하기',
-                        onPressed: () {
-                          Get.find<HomeController>().goWishPage();
-                        },
+                        onPressed: () {},
                       ),
                     );
                   }
@@ -107,7 +104,7 @@ class MainBox extends StatelessWidget {
                   height: 30,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: isWished
+                    color: wished
                         ? mainColor
                         : const Color.fromRGBO(217, 217, 217, 0.8),
                   ),

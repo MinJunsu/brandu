@@ -2,7 +2,6 @@ import 'package:brandu/components/color.dart';
 import 'package:brandu/components/text.dart';
 import 'package:brandu/models/account.dart';
 import 'package:brandu/utils/format.dart';
-import 'package:brandu/viewmodels/home/main.dart';
 import 'package:brandu/viewmodels/home/wish/main.dart';
 import 'package:brandu/widgets/base/border.dart';
 import 'package:brandu/widgets/base/snack-bar.dart';
@@ -15,7 +14,14 @@ class WishPage extends GetView<WishController> {
 
   @override
   Widget build(BuildContext context) {
+    controller.fetchWishes();
     return Obx(() {
+      if (controller.isLoading) {
+        return Container(
+          alignment: Alignment.center,
+          child: const CircularProgressIndicator(),
+        );
+      }
       if (controller.wishes.isEmpty) {
         return Container(
           width: double.infinity,
@@ -122,8 +128,7 @@ class WishPage extends GetView<WishController> {
                                         CustomButtonSnackBar(
                                           title: '장바구니에 추가되었습니다!',
                                           buttonTitle: '이동하기',
-                                          onPressed: Get.find<HomeController>()
-                                              .goBasketPage,
+                                          onPressed: () {},
                                         ),
                                       );
                                     }

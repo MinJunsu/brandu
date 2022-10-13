@@ -60,17 +60,19 @@ class CategoryPage extends GetView<CategoryController> {
                   crossAxisCount: 2,
                   childAspectRatio: 1 / 1.2,
                   crossAxisSpacing: 10,
-                  mainAxisSpacing: 20,
                 ),
                 itemBuilder: (BuildContext context, int index) {
                   SubCategory category = controller
                       .mainCategories[controller.index].sub_categories[index];
                   return GestureDetector(
-                    onTap: () => Get.toNamed('category/list', arguments: [
-                      '${controller.mainCategories[controller.index].name}(${category.name})',
-                      controller.mainCategories[controller.index]
-                          .sub_categories[index].id,
-                    ]),
+                    onTap: () => Get.toNamed(
+                      '/category/list',
+                      arguments: [
+                        controller.mainCategories[controller.index].name,
+                        controller.mainCategories[controller.index].id,
+                        index,
+                      ],
+                    ),
                     child: Container(
                       padding: const EdgeInsets.all(10),
                       child: Column(

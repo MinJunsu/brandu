@@ -25,6 +25,24 @@ class SimpleProduct {
 }
 
 @JsonSerializable()
+class ProductsWithCategory {
+  final int id;
+  final String category;
+  final List<SimpleProduct> products;
+
+  ProductsWithCategory({
+    required this.id,
+    required this.category,
+    required this.products,
+  });
+
+  factory ProductsWithCategory.fromJson(Map<String, dynamic> json) =>
+      _$ProductsWithCategoryFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ProductsWithCategoryToJson(this);
+}
+
+@JsonSerializable()
 class Brand {
   final int id;
   final String name;

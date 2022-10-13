@@ -40,7 +40,7 @@ abstract class AccountClient {
   Future<List<Wish>> getWishes();
 
   @POST('/wish/{id}/')
-  Future<Wish> postWishes(@Path("id") int id);
+  Future<void> postWishes(@Path("id") int id);
 
   @DELETE('/wish/{id}/')
   Future<void> deleteWishes(@Path("id") int id);

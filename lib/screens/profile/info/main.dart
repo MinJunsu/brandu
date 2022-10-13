@@ -1,7 +1,6 @@
 import 'package:brandu/components/color.dart';
 import 'package:brandu/components/text.dart';
 import 'package:brandu/models/account.dart';
-import 'package:brandu/viewmodels/home/main.dart';
 import 'package:brandu/viewmodels/profile/info/main.dart';
 import 'package:brandu/viewmodels/profile/info/my/main.dart';
 import 'package:brandu/viewmodels/profile/main.dart';
@@ -89,7 +88,6 @@ class ProfileInfoPage extends GetView<ProfileInfoController> {
             children: [
               CustomIconButton(
                 onPressed: () {
-                  Get.find<HomeController>().goWishPage();
                   Get.toNamed('/home');
                 },
                 icon: 'assets/icons/heart-black.svg',
@@ -98,8 +96,7 @@ class ProfileInfoPage extends GetView<ProfileInfoController> {
               ),
               CustomIconButton(
                 onPressed: () {
-                  Get.find<HomeController>().goBasketPage();
-                  Get.toNamed('/home');
+                  Get.toNamed('/basket');
                 },
                 icon: 'assets/icons/bucket-black.svg',
                 title: '장바구니',
@@ -107,7 +104,6 @@ class ProfileInfoPage extends GetView<ProfileInfoController> {
               ),
               CustomIconButton(
                 onPressed: () {
-                  Get.find<HomeController>().goScrapBook();
                   Get.toNamed('/home');
                 },
                 icon: 'assets/icons/save-black.svg',

@@ -16,7 +16,6 @@ class NoticeController extends GetxController {
 
   void fetchNotices() async {
     List<Notice> notices = await ServiceClient(Dio()).getNotices();
-    print(notices);
     _notices(notices);
   }
 }

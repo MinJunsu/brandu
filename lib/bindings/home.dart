@@ -1,4 +1,4 @@
-import 'package:brandu/viewmodels/home/basket/main.dart';
+import 'package:brandu/viewmodels/basket/main.dart';
 import 'package:brandu/viewmodels/home/store/main.dart';
 import 'package:brandu/viewmodels/home/wish/main.dart';
 import 'package:get/get.dart';

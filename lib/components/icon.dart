@@ -1,5 +1,4 @@
-import 'package:brandu/viewmodels/home/main.dart';
-import 'package:brandu/viewmodels/profile/main.dart';
+import 'package:brandu/viewmodels/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/svg.dart';
@@ -11,7 +10,6 @@ Widget homeIcon() {
     alignment: Alignment.centerLeft,
     child: IconButton(
       onPressed: () {
-        Get.find<HomeController>().controller.animateTo(0);
         Get.offAllNamed('/home');
       },
       icon: SvgPicture.asset('assets/icons/home.svg'),
@@ -27,7 +25,20 @@ Widget backIcon() {
       onPressed: () {
         Get.back();
       },
-      icon: SvgPicture.asset('assets/icons/back.svg'),
+      icon: SvgPicture.asset('assets/icons/left-arrow.svg'),
+    ),
+  );
+}
+
+Widget basketIcon() {
+  return Container(
+    width: 40,
+    alignment: Alignment.centerLeft,
+    child: IconButton(
+      onPressed: () {
+        Get.toNamed('/basket');
+      },
+      icon: SvgPicture.asset('assets/icons/bucket.svg'),
     ),
   );
 }
@@ -52,7 +63,7 @@ Widget infoIcon() {
     alignment: Alignment.centerLeft,
     child: IconButton(
       onPressed: () async {
-        if (await Get.find<ProfileController>().isAuthenticated()) {
+        if (await Get.find<BaseController>().isAuthenticate()) {
           Get.toNamed('/profile');
         } else {
           Get.toNamed('login');

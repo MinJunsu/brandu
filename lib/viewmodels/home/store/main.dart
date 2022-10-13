@@ -4,6 +4,7 @@ import 'package:brandu/services/accounts.dart';
 import 'package:brandu/services/auth_dio.dart';
 import 'package:brandu/services/events.dart';
 import 'package:brandu/services/products.dart';
+import 'package:brandu/viewmodels/main.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 
@@ -31,7 +32,6 @@ class StoreController extends GetxController {
 
   void addToWishList(int id) async {
     await AccountClient(await authDio()).postWishes(id);
-    fetchHotDealProducts();
   }
 
   fetchCarousels() async {
@@ -41,15 +41,15 @@ class StoreController extends GetxController {
   }
 
   fetchHotDealProducts() async {
-    Dio dio = Dio();
-    List<SimpleProduct> products = await ProductClient(dio).getHotDeals();
+    List<SimpleProduct> products =
+        await ProductClient(await Get.find<BaseController>().getAuthDioOrDio())
+            .getHotDeals();
     _hotDealProducts(products);
   }
 
   fetchCategories() async {
-    Dio dio = Dio();
     List<MainCategory> categories =
-        await ProductClient(dio).getMainCategories();
+        await ProductClient(Dio()).getMainCategories();
     _categories(categories);
   }
 }

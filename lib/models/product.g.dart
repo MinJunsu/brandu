@@ -24,6 +24,24 @@ Map<String, dynamic> _$SimpleProductToJson(SimpleProduct instance) =>
       'is_wish': instance.is_wish,
     };
 
+ProductsWithCategory _$ProductsWithCategoryFromJson(
+        Map<String, dynamic> json) =>
+    ProductsWithCategory(
+      id: json['id'] as int,
+      category: json['category'] as String,
+      products: (json['products'] as List<dynamic>)
+          .map((e) => SimpleProduct.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$ProductsWithCategoryToJson(
+        ProductsWithCategory instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'category': instance.category,
+      'products': instance.products,
+    };
+
 Brand _$BrandFromJson(Map<String, dynamic> json) => Brand(
       id: json['id'] as int,
       name: json['name'] as String,

@@ -1,8 +1,10 @@
 import 'package:brandu/bindings/home.dart';
 import 'package:brandu/bindings/profile.dart';
 import 'package:brandu/screens/auth/login.dart';
+import 'package:brandu/screens/basket/main.dart';
 import 'package:brandu/screens/category/list.dart';
 import 'package:brandu/screens/category/main.dart';
+import 'package:brandu/screens/home/search/main.dart';
 import 'package:brandu/screens/order/main.dart';
 import 'package:brandu/screens/order/payment/loading.dart';
 import 'package:brandu/screens/order/payment/main.dart';
@@ -22,9 +24,10 @@ import 'package:brandu/screens/profile/order/adress/modify.dart';
 import 'package:brandu/screens/profile/order/review/create.dart';
 import 'package:brandu/screens/profile/order/review/main.dart';
 import 'package:brandu/screens/profile/order/shipping/main.dart';
-import 'package:brandu/screens/search/main.dart';
 import 'package:brandu/viewmodels/auth/login.dart';
+import 'package:brandu/viewmodels/basket/main.dart';
 import 'package:brandu/viewmodels/category/list.dart';
+import 'package:brandu/viewmodels/home/search/main.dart';
 import 'package:brandu/viewmodels/order/main.dart';
 import 'package:brandu/viewmodels/order/payment/main.dart';
 import 'package:brandu/viewmodels/profile/info/coupon/create.dart';
@@ -41,7 +44,6 @@ import 'package:brandu/viewmodels/profile/order/address/main.dart';
 import 'package:brandu/viewmodels/profile/order/address/modify.dart';
 import 'package:brandu/viewmodels/profile/order/review/create.dart';
 import 'package:brandu/viewmodels/profile/order/review/main.dart';
-import 'package:brandu/viewmodels/search/main.dart';
 import 'package:get/get.dart';
 
 import 'home/main.dart';
@@ -105,6 +107,17 @@ List<GetPage> appRoutes() {
       binding: BindingsBuilder(
         () {
           Get.lazyPut(() => CategoryListController());
+        },
+      ),
+    ),
+    GetPage(
+      name: '/basket',
+      page: () => const BasketPage(),
+      transition: Transition.fade,
+      transitionDuration: const Duration(milliseconds: 500),
+      binding: BindingsBuilder(
+        () {
+          Get.lazyPut(() => BasketController());
         },
       ),
     ),

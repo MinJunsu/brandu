@@ -68,10 +68,10 @@ class AddressFormController extends GetxController {
       );
       if (_isCreate) {
         returnAddress =
-        await AccountClient(await authDio()).postAddresses(newAddress);
+            await AccountClient(await authDio()).postAddresses(newAddress);
       } else {
         returnAddress =
-        await AccountClient(await authDio()).patchAddress(id, newAddress);
+            await AccountClient(await authDio()).patchAddress(id, newAddress);
       }
       if (_isMain.value) {
         await AccountClient(await authDio()).patchAddressMain(returnAddress.id);
@@ -127,7 +127,6 @@ class AddressFormController extends GetxController {
   }
 
   void setIsMain(bool? isChecked) {
-    print(roadAddress);
     _isMain(isChecked!);
   }
 }

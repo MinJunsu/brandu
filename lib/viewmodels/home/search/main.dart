@@ -1,7 +1,7 @@
 import 'package:brandu/models/search.dart';
 import 'package:brandu/services/auth_dio.dart';
 import 'package:brandu/services/search.dart';
-import 'package:brandu/viewmodels/profile/main.dart';
+import 'package:brandu/viewmodels/main.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -25,7 +25,7 @@ class SearchController extends GetxController {
   }
 
   void fetchRecentSearches() async {
-    if (await Get.find<ProfileController>().isAuthenticated()) {
+    if (await Get.find<BaseController>().isAuthenticate()) {
       return;
     }
     List<RecentSearch> recentSearches =

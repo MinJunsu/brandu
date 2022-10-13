@@ -19,22 +19,10 @@ class ProfileMyPage extends GetView<ProfileMyController> {
         leading: Row(
           children: [
             backIcon(),
-            homeIcon(),
           ],
         ),
         title: '개인정보 수정',
-        actions: <Widget>[
-          TextButton(
-            onPressed: controller.onSubmit,
-            child: Container(
-              margin: const EdgeInsets.only(
-                right: 10,
-              ),
-              alignment: Alignment.center,
-              child: const NotoText('저장', size: 16, isBold: true),
-            ),
-          ),
-        ],
+        actions: const <Widget>[],
       ),
       body: SizedBox(
         height: double.infinity,
@@ -126,6 +114,26 @@ class ProfileMyPage extends GetView<ProfileMyController> {
                             ),
                           ),
                         ),
+                      ),
+                      GestureDetector(
+                        onTap: controller.onSubmit,
+                        child: Container(
+                          alignment: Alignment.center,
+                          width: MediaQuery.of(context).size.width - 50,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: mainColor,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: const NotoText(
+                            '저장하기',
+                            size: 14,
+                            isBold: true,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
                       ),
                     ],
                   ),
